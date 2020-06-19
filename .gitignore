@@ -1,0 +1,24 @@
+#Node modules
+node_modules/
+
+yarn-error.log
+yarn.lock
+.eslintcache
+
+# Environment variables
+.env
+
+# Folder of javascript
+dist/
+
+## Frontend
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+/yarn.lock
+*.lock
