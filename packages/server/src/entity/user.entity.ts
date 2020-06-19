@@ -1,11 +1,18 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne,
-    OneToMany, JoinColumn, CreateDateColumn, Unique
-    } from "typeorm";
+import {
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    ManyToOne,
+    OneToMany,
+    JoinColumn,
+    CreateDateColumn,
+    Unique,
+} from 'typeorm';
 import { Job } from './job.entity';
 import { Role } from './role.entity';
 
 @Entity()
-@Unique(["email"])
+@Unique(['email'])
 export class User {
     @PrimaryGeneratedColumn()
     id: number;
@@ -21,8 +28,8 @@ export class User {
 
     @Column()
     roleId: number;
-    @ManyToOne(() => Role, role => role.type)
-    @JoinColumn({ name: "roleId" })
+    @ManyToOne(() => Role, (role) => role.type)
+    @JoinColumn({ name: 'roleId' })
     type: Role;
 
     @Column()
@@ -31,6 +38,6 @@ export class User {
     @CreateDateColumn()
     created_At: Date;
 
-    @OneToMany(() => Job, job => job.owner)
+    @OneToMany(() => Job, (job) => job.owner)
     jobs: Job[];
 }

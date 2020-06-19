@@ -1,11 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { User } from './user.entity';
 import { TimeWork } from './type.entity';
-import {City } from './city.entity';
+import { City } from './city.entity';
 import { Category } from './category.entity';
 
 @Entity()
-export class Job{
+export class Job {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -14,8 +14,8 @@ export class Job{
 
     @Column()
     categoryId: number;
-    @ManyToOne(() => Category, category => category.type)
-    @JoinColumn({ name: "categoryId" })
+    @ManyToOne(() => Category, (category) => category.type)
+    @JoinColumn({ name: 'categoryId' })
     category: Category;
 
     @Column()
@@ -23,28 +23,28 @@ export class Job{
 
     @Column()
     cityId: number;
-    @ManyToOne(() => City, city => city.city)
-    @JoinColumn({ name: "cityId" })
+    @ManyToOne(() => City, (city) => city.city)
+    @JoinColumn({ name: 'cityId' })
     city: City;
 
     @Column()
     userId: number;
-    @ManyToOne(() => User, user => user.jobs)
-    @JoinColumn({ name: "userId" })
+    @ManyToOne(() => User, (user) => user.jobs)
+    @JoinColumn({ name: 'userId' })
     owner: User;
 
     @Column()
     typeId: number;
-    @ManyToOne(() => TimeWork, timework => timework.type)
-    @JoinColumn({ name: "typeId" })
+    @ManyToOne(() => TimeWork, (timework) => timework.type)
+    @JoinColumn({ name: 'typeId' })
     type: TimeWork;
 
     @Column()
     url_logo = '';
 
-    @Column("text")
+    @Column('text')
     description: string;
 
-    @Column({ type: 'date', default: () => 'NOW()'})
+    @Column({ type: 'date', default: () => 'NOW()' })
     created_time: Date;
 }
