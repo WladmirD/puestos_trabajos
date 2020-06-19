@@ -8,6 +8,9 @@ yarn.lock
 # Environment variables
 .env
 
+# Credentials of database
+ormconfig.json
+
 # Folder of javascript
 dist/
 
