@@ -1,0 +1,21 @@
+{
+  "name": "@puestos_trabajos/server",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsc-watch --onSuccess \"node dist/index.js\" ",
+    "lint": "eslint --cache --ext=.ts --fix src",
+    "format": "prettier --write src/**/*.ts",
+    "start": "tsc && node dist/index.js"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.3.0",
+    "@typescript-eslint/parser": "^3.3.0",
+    "eslint": "^7.2.0",
+    "eslint-plugin-import": "^2.21.2",
+    "prettier": "^2.0.5",
+    "tsc-watch": "^4.2.8",
+    "typescript": "^3.9.5"
+  }
+}
