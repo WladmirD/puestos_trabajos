@@ -26,7 +26,7 @@ export class User {
     type: Role;
 
     @Column()
-    url = 'str';
+    url = '';
 
     @CreateDateColumn()
     created_At: Date;
