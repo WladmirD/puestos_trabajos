@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne,
     OneToMany, JoinColumn, CreateDateColumn, Unique
     } from "typeorm";
 import { Job } from './job.entity';
-import { Role } from './role';
+import { Role } from './role.entity';
 
 @Entity()
 @Unique(["email"])

@@ -1,8 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
-import { User } from './user';
-import { TimeWork } from './type';
-import {City } from './city';
-import { Category } from './category';
+import { User } from './user.entity';
+import { TimeWork } from './type.entity';
+import {City } from './city.entity';
+import { Category } from './category.entity';
 
 @Entity()
 export class Job{
