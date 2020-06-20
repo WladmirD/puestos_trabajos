@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import { User } from '../entity/user.entity';
+import { Role } from '../entity/role.entity';
 import { createUser, checkUser, IUser } from '../repositories/user';
 import { comparePassword, hashedPassword, generateToken } from '../auth/index';
 import errorException from '../utils/errors';
-import { getRole } from '../repositories/general';
+import { findById } from '../repositories/general';
 
 
 
@@ -17,9 +18,9 @@ export async function signUp(req: Request, res: Response, next: NextFunction): P
         user['name'] = name;
         user['email'] = email;
         user['password'] = await hashedPassword(password);
-        user['roleId'] = await getRole(role);
+        user['roleId'] = await findById(role, Role);
         user['url'] = url;
-        const result = await createUser(user);
+        await createUser(user);
         return res.status(201).json({ message: "Created" });
     } catch (err) {
         next(err);
