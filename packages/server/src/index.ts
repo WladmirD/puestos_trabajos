@@ -3,6 +3,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
+import 'reflect-metadata';
+import { createConnection } from 'typeorm';
 
 import config from './config/index';
 
@@ -12,6 +14,7 @@ class App {
     constructor() {
         this.app = Express();
         this.plugins();
+        this.db();
     }
 
     protected plugins(): void {
@@ -21,6 +24,10 @@ class App {
         this.app.use(Express.urlencoded({ extended: false }));
         this.app.use(Express.json());
         this.app.use(rateLimit({ max: 100, windowMs: 30 * 60 * 1000 }));
+    }
+
+    protected async db(): Promise<void> {
+        await createConnection();
     }
 }
 const app = new App().app;
