@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { User } from './user.entity';
-import { TimeWork } from './type.entity';
+import { TimeWork } from './time_work.entity';
 import { City } from './city.entity';
 import { Category } from './category.entity';
 
@@ -39,7 +39,7 @@ export class Job {
     @JoinColumn({ name: 'typeId' })
     type: TimeWork;
 
-    @Column({ type: 'character', default: '/src' })
+    @Column({ type: 'character', length: 100, default: '/src' })
     url_logo: string;
 
     @Column('text')

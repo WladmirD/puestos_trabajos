@@ -17,7 +17,7 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ length: 100 })
     name: string;
 
     @Column()
@@ -32,7 +32,7 @@ export class User {
     @JoinColumn({ name: 'roleId' })
     type: Role;
 
-    @Column({ type: 'character', default: '/src' })
+    @Column({ type: 'char', length: 100, default: '/src' })
     url: string;
 
     @CreateDateColumn()
