@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 
 import { User } from '../entity/user.entity';
 import config from '../config/index';
-import { BadRequest } from '../utils/errors';
+import errorException from '../utils/errors';
 
 export async function generateToken(id: number, role: string): Promise<string> {
     const secretKey: string | any = config.jwtSecret;
@@ -19,7 +19,7 @@ export async function comparePassword(
     try {
         return await bcrypt.compare(password, hashPassword);
     } catch (err) {
-        throw new BadRequest('Password is incorrect');
+        throw new errorException(500,'Something wrong happened.');
     }
 }
 

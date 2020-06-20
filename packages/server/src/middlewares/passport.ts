@@ -1,5 +1,5 @@
 import { Strategy, ExtractJwt, StrategyOptions } from 'passport-jwt';
-import { GeneralError } from '../utils/errors';
+import errorException from '../utils/errors';
 import { User } from '../entity/user.entity';
 import { getRepository } from 'typeorm';
 
@@ -22,6 +22,6 @@ export default new Strategy(opts, async (payload, done) => {
         }
         return done(null, false);
     } catch (err) {
-        throw new GeneralError(err);
+        throw new errorException(500,err);
     }
 });

@@ -7,6 +7,8 @@ import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 
 import config from './config/index';
+import authRouter from './routes/auth.routes';
+import handleErrors from './middlewares/handleErrors';
 
 class App {
     public app: Application;
@@ -15,6 +17,8 @@ class App {
         this.app = Express();
         this.plugins();
         this.db();
+        this.routes();
+        this.errors();
     }
 
     protected plugins(): void {
@@ -28,6 +32,13 @@ class App {
 
     protected async db(): Promise<void> {
         await createConnection();
+    }
+
+    protected routes(): void {
+        this.app.use('/api', authRouter);
+    }
+    protected errors(): void {
+        this.app.use(handleErrors);
     }
 }
 const app = new App().app;
