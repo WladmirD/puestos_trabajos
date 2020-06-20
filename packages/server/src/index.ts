@@ -5,10 +5,12 @@ import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
+import passport from 'passport';
 
 import config from './config/index';
 import authRouter from './routes/auth.routes';
 import handleErrors from './middlewares/handleErrors';
+import passportMiddleware from './middlewares/passport';
 
 class App {
     public app: Application;
@@ -28,6 +30,8 @@ class App {
         this.app.use(Express.urlencoded({ extended: false }));
         this.app.use(Express.json());
         this.app.use(rateLimit({ max: 100, windowMs: 30 * 60 * 1000 }));
+        this.app.use(passport.initialize());
+        passport.use(passportMiddleware);
     }
 
     protected async db(): Promise<void> {

@@ -1,7 +1,6 @@
 import { Strategy, ExtractJwt, StrategyOptions } from 'passport-jwt';
 import errorException from '../utils/errors';
-import { User } from '../entity/user.entity';
-import { getRepository } from 'typeorm';
+import { findById } from '../repositories/user';
 
 import config from '../config/index';
 
@@ -12,7 +11,7 @@ const opts: StrategyOptions = {
 
 export default new Strategy(opts, async (payload, done) => {
     try {
-        const user = await getRepository(User);
+        const user = await findById(payload.id);
         const { exp } = payload;
         if (exp < Date.now()) {
             if (user) {
