@@ -5,6 +5,6 @@ export class Configuration {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ default: 5 })
     NumPagination: number;
 }

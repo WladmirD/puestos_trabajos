@@ -39,8 +39,8 @@ export class Job {
     @JoinColumn({ name: 'typeId' })
     type: TimeWork;
 
-    @Column()
-    url_logo = '';
+    @Column({ type: 'character', default: '/src' })
+    url_logo: string;
 
     @Column('text')
     description: string;

@@ -9,8 +9,8 @@ export class Category {
     @Column()
     name: string;
 
-    @Column()
-    isActive = true;
+    @Column({ type: 'boolean', default: true })
+    isActive: boolean;
 
     @OneToMany(() => Job, (job) => job.category)
     type: Job[];

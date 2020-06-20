@@ -32,8 +32,8 @@ export class User {
     @JoinColumn({ name: 'roleId' })
     type: Role;
 
-    @Column()
-    url = '';
+    @Column({ type: 'character', default: '/src' })
+    url: string;
 
     @CreateDateColumn()
     created_At: Date;
