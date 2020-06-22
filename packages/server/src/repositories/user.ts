@@ -1,11 +1,14 @@
 import { getRepository } from 'typeorm';
 import { User } from '../entity/user.entity';
 
-export interface IUser {
+export interface IPassport {
     id: number;
     email: string;
-    password: string;
     type: string;
+}
+
+export interface IUser extends IPassport {
+    password: string;
 }
 /**
  *
@@ -37,7 +40,7 @@ export async function checkUser(email: string): Promise<IUser> {
 /**
  * Find in the database the record of the given entity that match the given user
  * @param email
- * @return {ILogin} object found..
+ * @return {IUser} object found..
  */
 export async function findById(id: number): Promise<IUser> {
     const result: User | any = await getRepository(User).find({
@@ -45,10 +48,9 @@ export async function findById(id: number): Promise<IUser> {
         relations: ['type'],
         where: { id: id },
     });
-    const userResult: IUser | any = new Object();
+    const userResult: IPassport | any = new Object();
     userResult['id'] = result[0].id;
     userResult['email'] = result[0].email;
-    userResult['password'] = result[0].password;
     userResult['type'] = result[0].type.name;
     return userResult;
 }
