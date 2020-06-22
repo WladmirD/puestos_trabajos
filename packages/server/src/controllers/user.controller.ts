@@ -12,7 +12,7 @@ export async function signUp(req: Request, res: Response, next: NextFunction): P
     try {
         const { name, email, password, role, url} = req.body;
         if (!name || !email || !password || !role || !url) {
-            throw new errorException(404, 'Missing parameters');
+            throw new errorException(400, 'Missing parameters');
         }
         const user: User | any = new Object();
         user['name'] = name;

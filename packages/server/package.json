@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "tsc --onSuccess \"node dist/index.js\" ",
+    "dev": "tsc-watch --onSuccess \"node dist/index.js\" ",
     "lint": "eslint --cache --ext=.ts --fix src",
     "format": "prettier --write src/**/*.ts",
     "start": "tsc && node dist/index.js",

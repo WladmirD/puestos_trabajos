@@ -8,7 +8,7 @@ import { createConnection } from 'typeorm';
 import passport from 'passport';
 
 import config from './config/index';
-import authRouter from './routes/auth.routes';
+import authRouter from './routes/general.routes';
 import handleErrors from './middlewares/handleErrors';
 import passportMiddleware from './middlewares/passport';
 
