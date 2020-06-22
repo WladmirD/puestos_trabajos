@@ -41,7 +41,7 @@ export async function logIn(req: Request, res: Response, next: NextFunction): Pr
         if(!check) {
             throw new errorException(401,"Bad authentication.");
         }
-        res.status(200).json({ token: await generateToken(user.id, user.type), user})
+        res.status(200).json({ token: await generateToken(user.id, user.type), user});
     } catch(err) {
         next(err);
     }
