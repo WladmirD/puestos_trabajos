@@ -15,8 +15,6 @@ export async function createJobCT(req: Request, res: Response, next: NextFunctio
         if( !posicion || !category || !address || !city || !type || !description) {
             throw new errorException(400, "Missing parameters.");
         }
-        // @ts-ignore
-        if( req.user?.type) { throw new errorException(403,'Permission denied.');}
         const job: Job = new Job();
         job.posicion = posicion;
         job.address = address;
