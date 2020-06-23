@@ -28,11 +28,11 @@ export class User {
 
     @Column()
     roleId: number;
-    @ManyToOne(() => Role, (role) => role.type)
+    @ManyToOne(() => Role, (role) => role.type, { eager: true })
     @JoinColumn({ name: 'roleId' })
     type: Role;
 
-    @Column({ type: 'char', length: 100, default: '/src' })
+    @Column({ type: 'char', length: 100, default: '/src', nullable: true })
     url: string;
 
     @CreateDateColumn()

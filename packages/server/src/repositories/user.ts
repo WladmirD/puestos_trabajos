@@ -9,6 +9,7 @@ export interface IPassport {
 
 export interface IUser extends IPassport {
     password: string;
+    url: string;
 }
 /**
  *
@@ -20,20 +21,21 @@ export async function createUser(user: User): Promise<User> {
 }
 /**
  * Find in the database the record of the given entity that match the given user
- * @param email
+ * @param email string
  * @return {ILogin} object found..
  */
 export async function checkUser(email: string): Promise<IUser> {
-    const result: User | any = await getRepository(User).find({
+    const [result]: User | any = await getRepository(User).find({
         select: ['id','email', 'password', 'type'],
         relations: ['type'],
         where: { email: email },
     });
     const userResult: IUser | any = new Object();
-    userResult['id'] = result[0].id;
-    userResult['email'] = result[0].email;
-    userResult['password'] = result[0].password;
-    userResult['type'] = result[0].type.name;
+    userResult['id'] = result.id;
+    userResult['email'] = result.email;
+    userResult['password'] = result.password;
+    userResult['type'] = result.type.name;
+    userResult['url'] = result.url;
     return userResult;
 }
 
@@ -43,14 +45,14 @@ export async function checkUser(email: string): Promise<IUser> {
  * @return {IUser} object found..
  */
 export async function findById(id: number): Promise<IUser> {
-    const result: User | any = await getRepository(User).find({
-        select: ['id','email', 'type'],
-        relations: ['type'],
-        where: { id: id },
-    });
-    const userResult: IPassport | any = new Object();
-    userResult['id'] = result[0].id;
-    userResult['email'] = result[0].email;
-    userResult['type'] = result[0].type.name;
-    return userResult;
+        const [result]: User | any = await getRepository(User).find({
+            select: ['id','email', 'type'],
+            relations: ['type'],
+            where: { id: id },
+        });
+        const userResult: IPassport | any = new Object();
+        userResult['id'] = result.id;
+        userResult['email'] = result.email;
+        userResult['type'] = result.type.name;
+        return userResult;
 }
