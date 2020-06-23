@@ -28,6 +28,12 @@ export async function createJob(job: Job): Promise<Job | undefined> {
     }
 }
 
+
+/**
+ *
+ * @param id of job type number
+ * @return object type IJob
+ */
 export async function findByIdJob(id: number) {
     try {
         const [result]: Job | any = await getRepository(Job).find({ id: id});
