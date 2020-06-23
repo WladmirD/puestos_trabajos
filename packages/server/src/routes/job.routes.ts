@@ -2,7 +2,7 @@ import { Router } from 'express';
 import passport from 'passport';
 
 import { createJobCT, findJob } from '../controllers/job.controller';
-import isPoster from '../middlewares/isPoster';
+import { isPoster } from '../middlewares/isWho';
 
 class UserRoutes {
     public router: Router;
