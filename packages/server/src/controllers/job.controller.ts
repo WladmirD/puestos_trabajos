@@ -4,7 +4,7 @@ import { Job } from '../entity/job.entity';
 import { City } from '../entity/city.entity';
 import { TimeWork } from '../entity/time_work.entity';
 import { Category } from '../entity/category.entity';
-import { createJob } from '../repositories/job';
+import { createJob, findByIdJob, IJob } from '../repositories/job';
 import { findById } from '../repositories/general';
 import errorException from '../utils/errors';
 
@@ -27,6 +27,19 @@ export async function createJobCT(req: Request, res: Response, next: NextFunctio
         job.url_logo = url_logo ? url_logo : null;
         await createJob(job);
         res.status(201).json({ message: 'Created.' });
+    } catch(err) {
+        next(err);
+    }
+}
+
+export async function findJob(req: Request, res: Response, next: NextFunction) {
+    try {
+        const { id } = req.params;
+        const result: IJob | any = await findByIdJob(parseInt(id));
+        if(!result) {
+            throw new errorException(404,'Not found.');
+        }
+        res.status(200).json(result);
     } catch(err) {
         next(err);
     }

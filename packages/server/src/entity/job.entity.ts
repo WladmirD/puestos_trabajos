@@ -14,7 +14,7 @@ export class Job {
 
     @Column()
     categoryId: number;
-    @ManyToOne(() => Category, (category) => category.type)
+    @ManyToOne(() => Category, (category) => category.type, { eager: true })
     @JoinColumn({ name: 'categoryId' })
     category: Category;
 
@@ -23,23 +23,23 @@ export class Job {
 
     @Column()
     cityId: number;
-    @ManyToOne(() => City, (city) => city.city)
+    @ManyToOne(() => City, (city) => city.city, { eager: true })
     @JoinColumn({ name: 'cityId' })
     city: City;
 
     @Column()
     userId: number;
-    @ManyToOne(() => User, (user) => user.jobs)
+    @ManyToOne(() => User, (user) => user.jobs, { eager: true })
     @JoinColumn({ name: 'userId' })
     owner: User;
 
     @Column()
     typeId: number;
-    @ManyToOne(() => TimeWork, (timework) => timework.type)
+    @ManyToOne(() => TimeWork, (timework) => timework.type, { eager: true })
     @JoinColumn({ name: 'typeId' })
     type: TimeWork;
 
-    @Column({ type: 'character', length: 100, default: '/src' })
+    @Column({ type: 'character', length: 100, default: '/src', nullable: true })
     url_logo: string;
 
     @Column('text')
