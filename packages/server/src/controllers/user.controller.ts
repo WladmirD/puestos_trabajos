@@ -35,12 +35,13 @@ export async function logIn(req: Request, res: Response, next: NextFunction): Pr
         }
         const user: IUser = await checkUser(email);
         if (!user) {
-            throw new errorException(404, 'Not found that user.');
+            throw new errorException(404, 'Incorrect password or email.');
         }
         const check: boolean = await comparePassword(password,user.password);
         if(!check) {
             throw new errorException(401,"Bad authentication.");
         }
+        delete user.password;
         res.status(200).json({ token: await generateToken(user.id, user.type), user});
     } catch(err) {
         next(err);
