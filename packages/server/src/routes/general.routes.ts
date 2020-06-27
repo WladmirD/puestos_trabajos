@@ -17,8 +17,18 @@ class UserRoutes {
     protected routes(): void {
         this.router.post('/register', signUp);
         this.router.post('/logIn', logIn);
-        this.router.get('/pagination',passport.authenticate('jwt', { session: false }), isAdmin, findPag);
-        this.router.put('/pagination',passport.authenticate('jwt', { session: false }), isAdmin, updatePag);
+        this.router.get(
+            '/pagination',
+            passport.authenticate('jwt', { session: false }),
+            isAdmin,
+            findPag,
+        );
+        this.router.put(
+            '/pagination',
+            passport.authenticate('jwt', { session: false }),
+            isAdmin,
+            updatePag,
+        );
         this.router.use('/', jobRoutes);
     }
 }

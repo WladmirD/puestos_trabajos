@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import {
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    ManyToOne,
+    JoinColumn,
+    CreateDateColumn,
+} from 'typeorm';
 import { User } from './user.entity';
 import { TimeWork } from './time_work.entity';
 import { City } from './city.entity';
@@ -45,6 +52,6 @@ export class Job {
     @Column('text')
     description: string;
 
-    @Column({ type: 'date', default: () => 'NOW()' })
+    @CreateDateColumn()
     created_time: Date;
 }

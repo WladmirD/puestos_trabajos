@@ -19,7 +19,7 @@ export async function comparePassword(
     try {
         return await bcrypt.compare(password, hashPassword);
     } catch (err) {
-        throw new errorException(500,'Something wrong happened.');
+        throw new errorException(500, 'Something wrong happened.');
     }
 }
 

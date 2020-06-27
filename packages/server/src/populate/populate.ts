@@ -89,4 +89,5 @@ async function populate() {
     console.log('Hecho');
     process.exit(1);
 }
+populatedb();
 populate();

@@ -17,10 +17,10 @@ export default new Strategy(opts, async (payload, done) => {
             if (user) {
                 return done(null, user);
             }
-            return done(null, false);
+            return done(null, false,{ message:'The token is expired.' });
         }
-        return done(null, false);
+        return done(null, false, { message: 'Unauthorized.'});
     } catch (err) {
-        throw new errorException(500,err);
+        throw new errorException(500, err);
     }
 });

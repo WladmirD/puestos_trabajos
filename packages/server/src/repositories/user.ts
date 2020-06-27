@@ -26,7 +26,7 @@ export async function createUser(user: User): Promise<User> {
  */
 export async function checkUser(email: string): Promise<IUser> {
     const [result]: User | any = await getRepository(User).find({
-        select: ['id','email', 'password', 'type'],
+        select: ['id', 'email', 'password', 'type'],
         relations: ['type'],
         where: { email: email },
     });
@@ -45,14 +45,14 @@ export async function checkUser(email: string): Promise<IUser> {
  * @return {IUser} object found..
  */
 export async function findById(id: number): Promise<IUser> {
-        const [result]: User | any = await getRepository(User).find({
-            select: ['id','email', 'type'],
-            relations: ['type'],
-            where: { id: id },
-        });
-        const userResult: IPassport | any = new Object();
-        userResult['id'] = result.id;
-        userResult['email'] = result.email;
-        userResult['type'] = result.type.name;
-        return userResult;
+    const [result]: User | any = await getRepository(User).find({
+        select: ['id', 'email', 'type'],
+        relations: ['type'],
+        where: { id: id },
+    });
+    const userResult: IPassport | any = new Object();
+    userResult['id'] = result.id;
+    userResult['email'] = result.email;
+    userResult['type'] = result.type.name;
+    return userResult;
 }

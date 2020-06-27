@@ -11,7 +11,7 @@ export default function handleErrors(
     const status = err.status || 500;
     const message = err.message || 'Something went wrong';
     return res.status(status).json({
-                error: "error",
-                message: message
-            });
+        error: 'error',
+        message: message,
+    });
 }
