@@ -46,6 +46,7 @@
     "passport-jwt": "^4.0.0",
     "pg": "^8.2.1",
     "reflect-metadata": "^0.1.13",
+    "tsc": "^1.20150623.0",
     "typeorm": "^0.2.25"
   }
 }
