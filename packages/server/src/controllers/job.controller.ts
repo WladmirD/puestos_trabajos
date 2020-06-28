@@ -1,7 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Request, Response, NextFunction } from 'express';
 import { Job } from '../entity/job.entity';
-import { createJob, findByIdJob, IJob, getAllJob, deleteJob, searchKeyword } from '../repositories/job';
+import {
+    createJob,
+    findByIdJob,
+    IJob,
+    getAllJob,
+    deleteJob,
+    searchKeyword,
+} from '../repositories/job';
 import { findNumPag } from '../repositories/general';
 import errorException from '../utils/errors';
 
@@ -45,11 +52,10 @@ export async function getJobs(req: Request, res: Response, next: NextFunction) {
     try {
         const { page } = req.query || 1;
         const { search } = req.query;
-        if ( search) {
+        if (search) {
             const jobs = await searchKeyword(search);
             res.status(200).json(jobs);
-        }
-        else {
+        } else {
             const limit = await findNumPag();
             const jobs = await getAllJob(limit, page);
             res.status(200).json(jobs);
@@ -62,10 +68,12 @@ export async function getJobs(req: Request, res: Response, next: NextFunction) {
 export async function deleteJobById(req: Request, res: Response, next: NextFunction) {
     try {
         const { id } = req.params;
-        if ( !id ) { throw new errorException(400, 'Missing parameters.'); }
+        if (!id) {
+            throw new errorException(400, 'Missing parameters.');
+        }
         await deleteJob(id);
         res.status(200).json({ message: 'Deleted.' });
-    } catch(err) {
+    } catch (err) {
         next(err);
     }
 }

@@ -41,7 +41,7 @@ class App {
 
     protected routes(): void {
         this.app.use('/api', authRouter);
-        this.app.use('/public',Express.static(path.join(__dirname, '../images')));
+        this.app.use('/public', Express.static(path.join(__dirname, '../images')));
     }
     protected errors(): void {
         this.app.use(handleErrors);

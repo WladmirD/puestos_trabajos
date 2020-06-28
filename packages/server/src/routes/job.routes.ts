@@ -24,7 +24,12 @@ class UserRoutes {
             createJobCT,
         );
         this.router.get('/jobs/:id', passport.authenticate('jwt', { session: false }), findJob);
-        this.router.delete('/jobs/:id', passport.authenticate('jwt', { session: false }), isAdmin, deleteJobById);
+        this.router.delete(
+            '/jobs/:id',
+            passport.authenticate('jwt', { session: false }),
+            isAdmin,
+            deleteJobById,
+        );
     }
 }
 const router = new UserRoutes().router;

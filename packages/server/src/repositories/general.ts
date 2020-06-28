@@ -36,7 +36,7 @@ export async function updateNummPag(num: number) {
  * @return
  */
 export async function updateCategory(id: number | any) {
-    return await getRepository(Category).update({ id: id},{ isActive: false});
+    return await getRepository(Category).update({ id: id }, { isActive: false });
 }
 
 /**
