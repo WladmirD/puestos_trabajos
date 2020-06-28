@@ -1,5 +1,6 @@
 import { getRepository } from 'typeorm';
 import { Configuration } from '../entity/configuration.entity';
+import { Category } from '../entity/category.entity';
 
 /**
  *
@@ -28,4 +29,20 @@ export async function findNumPag() {
  */
 export async function updateNummPag(num: number) {
     return await getRepository(Configuration).update({ id: 1 }, { NumPagination: num });
+}
+
+/**
+ * @param id type number
+ * @return
+ */
+export async function updateCategory(id: number | any) {
+    return await getRepository(Category).update({ id: id},{ isActive: false});
+}
+
+/**
+ * @param
+ * @return Category[]
+ */
+export async function getCategories() {
+    return await getRepository(Category).find();
 }
