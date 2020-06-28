@@ -49,7 +49,7 @@ export async function findByIdJob(id: number) {
 export async function getAllJob(limit: number | any, pages: number | any) {
     const result = await getRepository(Job).find({
         select: ['id', 'posicion', 'address', 'city', 'created_time', 'owner', 'category'],
-        relations: ['owner', 'category'],
+        relations: ['owner', 'category', 'city'],
         order: {
             created_time: 'DESC',
         },
@@ -74,9 +74,10 @@ function manipulateData(datos : Array<any>) {
             delete data.owner.roleId;
             delete data.owner.created_At;
             delete data.owner.password;
-            data.owner = data.owner.name;
             delete data.category.id;
+            data.owner = data.owner.name;
             data.category = data.category.name;
+            data.city = data.city.name;
             return data;
     })
     return result;
