@@ -1,8 +1,10 @@
 import { Router } from 'express';
 import passport from 'passport';
+import multer from 'multer';
 
 import { createJobCT, findJob, getJobs, deleteJobById } from '../controllers/job.controller';
 import { isPoster, isAdmin } from '../middlewares/isWho';
+import midMulter from '../middlewares/multer';
 
 class UserRoutes {
     public router: Router;
@@ -18,6 +20,7 @@ class UserRoutes {
             '/create',
             passport.authenticate('jwt', { session: false }),
             isPoster,
+            multer(midMulter).single('image'),
             createJobCT,
         );
         this.router.get('/jobs/:id', passport.authenticate('jwt', { session: false }), findJob);

@@ -1,5 +1,6 @@
 import Express, { Application } from 'express';
 import cors from 'cors';
+import path from 'path';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
@@ -40,6 +41,7 @@ class App {
 
     protected routes(): void {
         this.app.use('/api', authRouter);
+        this.app.use('/public',Express.static(path.join(__dirname, '../images')));
     }
     protected errors(): void {
         this.app.use(handleErrors);
