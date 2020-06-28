@@ -4,7 +4,7 @@ import { Job } from '../entity/job.entity';
 import { City } from '../entity/city.entity';
 import { TimeWork } from '../entity/time_work.entity';
 import { Category } from '../entity/category.entity';
-import { createJob, findByIdJob, IJob, getAllJob } from '../repositories/job';
+import { createJob, findByIdJob, IJob, getAllJob, deleteJob } from '../repositories/job';
 import { findNumPag } from '../repositories/general';
 import { findById } from '../repositories/general';
 import errorException from '../utils/errors';
@@ -52,6 +52,17 @@ export async function getJobs(req: Request, res: Response, next: NextFunction) {
         const jobs = await getAllJob(limit, page);
         res.json(jobs);
     } catch (err) {
+        next(err);
+    }
+}
+
+export async function deleteJobById(req: Request, res: Response, next: NextFunction) {
+    try {
+        const { id } = req.params;
+        if ( !id ) { throw new errorException(400, 'Missing parameters.'); }
+        await deleteJob(id);
+        res.status(200).json({ message: 'Deleted.' });
+    } catch(err) {
         next(err);
     }
 }

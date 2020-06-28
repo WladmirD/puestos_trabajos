@@ -60,6 +60,10 @@ export async function getAllJob(limit: number | any, pages: number | any) {
     return { jobs, total: Math.ceil(jobs.length / limit) };
 }
 
+export async function deleteJob(id: number | any) {
+    return await getRepository(Job).delete({ id: id});
+}
+
 function manipulateData(datos : Array<any>) {
     const result = datos.filter(data => {
         return data.category.isActive === true;

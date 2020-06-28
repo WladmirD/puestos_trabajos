@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import passport from 'passport';
 
-import { createJobCT, findJob, getJobs } from '../controllers/job.controller';
-import { isPoster } from '../middlewares/isWho';
+import { createJobCT, findJob, getJobs, deleteJobById } from '../controllers/job.controller';
+import { isPoster, isAdmin } from '../middlewares/isWho';
 
 class UserRoutes {
     public router: Router;
@@ -20,6 +20,7 @@ class UserRoutes {
             createJobCT,
         );
         this.router.get('/jobs/:id', passport.authenticate('jwt', { session: false }), findJob);
+        this.router.delete('/jobs/:id', passport.authenticate('jwt', { session: false }), isAdmin, deleteJobById);
         this.router.get('/jobs', getJobs);
     }
 }
