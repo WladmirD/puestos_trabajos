@@ -56,5 +56,24 @@ export async function getAllJob(limit: number | any, pages: number | any) {
         take: limit * pages,
         skip: (pages - 1) * limit,
     });
-    return { result, total: Math.ceil(total / limit) };
+    const jobs = manipulateData(result)
+    return { jobs, total: Math.ceil(total / limit) };
 }
+
+function manipulateData(datas : Array<any>) {
+    datas.map(data => {
+        if (data.category.isActive === true) {
+            delete data.owner.id;
+            delete data.owner.email;
+            delete data.owner.roleId;
+            delete data.owner.created_At;
+            delete data.owner.password;
+            data.owner = data.owner.name;
+            delete data.category.id;
+            data.category = data.category.name;
+            return data;
+        }
+    })
+    return datas;
+}
+
