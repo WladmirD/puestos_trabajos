@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./styles/Login.css";
+import { useAppContext } from "../libs/contextLib";
 
 export default function Login() {
+  const { userHasAuthenticated } = useAppContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,6 +18,7 @@ export default function Login() {
     try {
       //Auth usando AWS-Amplify
       //await Auth.signIn(email, password);
+      userHasAuthenticated(true);
       alert("Logged in");
     } catch (e) {
       alert(e.message);
