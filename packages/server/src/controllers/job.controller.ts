@@ -50,7 +50,7 @@ export async function getJobs(req: Request, res: Response, next: NextFunction) {
         const { page } = req.query || 1;
         const limit = await findNumPag();
         const jobs = await getAllJob(limit, page);
-        res.json(jobs);
+        res.status(200).json(jobs);
     } catch (err) {
         next(err);
     }

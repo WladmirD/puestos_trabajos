@@ -1,5 +1,6 @@
 import { getRepository } from 'typeorm';
 import { Job } from '../entity/job.entity';
+import { City } from '../entity/city.entity';
 
 export interface IJob {
     id: number;
@@ -47,28 +48,27 @@ export async function findByIdJob(id: number) {
 }
 
 export async function getAllJob(limit: number | any, pages: number | any) {
-    const result = await getRepository(Job).find({
-        select: ['id', 'posicion', 'address', 'city', 'created_time', 'owner', 'category'],
-        relations: ['owner', 'category', 'city'],
-        order: {
-            created_time: 'DESC',
-        },
-        take: limit * pages,
-        skip: (pages - 1) * limit,
-    });
-    const jobs = manipulateData(result)
-    return { jobs, total: Math.ceil(jobs.length / limit) };
+    const [result, total] = await getRepository(Job).createQueryBuilder('job')
+                        .select(["job.id","job.posicion","job.address","job.created_time"])
+                        .innerJoinAndSelect('job.owner', 'owner')
+                        .innerJoinAndSelect('job.city','city')
+                        .innerJoinAndSelect('job.category', 'category', 'category.isActive = :category', { category: true})
+                        .orderBy("job.created_time", 'DESC')
+                        .addOrderBy("category.name", 'DESC')
+                        .take(limit * pages)
+                        .skip((pages - 1)* limit)
+                        .getManyAndCount();
+    const jobs = manipulateData(result);
+    return {jobs, total: Math.ceil(total/limit)};
 }
 
 export async function deleteJob(id: number | any) {
     return await getRepository(Job).delete({ id: id});
 }
 
+
 function manipulateData(datos : Array<any>) {
-    const result = datos.filter(data => {
-        return data.category.isActive === true;
-    });
-    result.map(data => {
+    datos.map(data => {
             delete data.owner.id;
             delete data.owner.email;
             delete data.owner.roleId;
@@ -80,6 +80,6 @@ function manipulateData(datos : Array<any>) {
             data.city = data.city.name;
             return data;
     })
-    return result;
+    return datos;
 }
 
