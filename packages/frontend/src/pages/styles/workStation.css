@@ -1,0 +1,53 @@
+.inline {
+	float: left;
+}
+
+#search-btn {
+	margin-left: 5px;
+}
+
+/*Design table*/
+#table1 {
+	margin-left: 200px;
+	margin-right: 200px;
+	margin-bottom: 30px;
+}
+
+/*Programming table*/
+#table2 {
+	margin-left: 200px;
+	margin-right: 200px;
+	margin-bottom: 50px;
+}
+
+
+.line {
+   width: 100%; 
+   text-align: center; 
+   border-bottom: 1.7px solid #d6dad5; 
+   line-height: 0.1em;
+   margin: 10px 0 20px; 
+} 
+
+.line span { 
+	color: #000;
+    background:#fff; 
+    padding:0 10px; 
+}
+.float_right{float: right}
+
+.main-workStation{
+	padding-top: 20px; margin: 0 200px 80px 200px
+}
+.red{color: red}
+
+.scroll-bar{
+    height: 80vh;
+    overflow-y: scroll;
+    width: 100%;
+    overflow-x: hidden;
+
+}
+.scroll-bar::-webkit-scrollbar {
+    display: none;
+}
