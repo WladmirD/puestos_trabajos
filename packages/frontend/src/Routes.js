@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 
+import WorkStation from "./pages/workStation.js";
+
 export default function Routes() {
   return (
     <Switch>
@@ -11,12 +13,18 @@ export default function Routes() {
         <Home />
       </Route>
       <Route exact path="/login">
-  <Login />
-</Route>
+        <Login />
+      </Route>
+
+      <Route exact path="/workStation">
+        <WorkStation />
+      </Route>
+
+
       {/* Finally, catch all unmatched routes */}
-    <Route>
+      <Route>
         <NotFound />
-    </Route>
+      </Route>
     </Switch>
   );
 }
