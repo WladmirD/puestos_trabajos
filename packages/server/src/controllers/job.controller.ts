@@ -1,13 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Request, Response, NextFunction } from 'express';
-import path from 'path';
 import { Job } from '../entity/job.entity';
-import { City } from '../entity/city.entity';
-import { TimeWork } from '../entity/time_work.entity';
-import { Category } from '../entity/category.entity';
 import { createJob, findByIdJob, IJob, getAllJob, deleteJob, searchKeyword } from '../repositories/job';
 import { findNumPag } from '../repositories/general';
-import { findById } from '../repositories/general';
 import errorException from '../utils/errors';
 
 export async function createJobCT(req: Request, res: Response, next: NextFunction) {

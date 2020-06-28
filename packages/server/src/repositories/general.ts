@@ -41,8 +41,8 @@ export async function updateCategory(id: number | any) {
 
 /**
  * @param
- * @return Category[]
+ * @return [] un array de la criteria entrada
  */
-export async function getCategories() {
-    return await getRepository(Category).find();
+export async function getAll(criteria: any) {
+    return await getRepository(criteria).find();
 }

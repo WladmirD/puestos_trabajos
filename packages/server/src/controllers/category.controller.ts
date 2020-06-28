@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { updateCategory, getCategories} from '../repositories/general';
+import { Category } from '../entity/category.entity';
+import { City } from '../entity/city.entity';
+import { updateCategory, getAll} from '../repositories/general';
 import errorException from '../utils/errors';
 
 export async function updateCategoryById(req: Request, res: Response, next: NextFunction) {
@@ -15,7 +17,16 @@ export async function updateCategoryById(req: Request, res: Response, next: Next
 
 export async function getAllCategory(req: Request, res: Response, next: NextFunction) {
     try {
-        const result = await getCategories();
+        const result = await getAll(Category);
+        res.status(200).json(result);
+    } catch(err) {
+        next(err);
+    }
+}
+
+export async function getAllCities(req: Request, res: Response, next: NextFunction) {
+    try {
+        const result = await getAll(City);
         res.status(200).json(result);
     } catch(err) {
         next(err);

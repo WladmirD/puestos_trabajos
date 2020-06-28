@@ -3,7 +3,7 @@ import passport from 'passport';
 
 import { signUp, logIn } from '../controllers/user.controller';
 import { findPag, updatePag } from '../controllers/configuration.controller';
-import { updateCategoryById, getAllCategory } from '../controllers/category.controller';
+import { updateCategoryById, getAllCategory, getAllCities } from '../controllers/category.controller';
 import { isAdmin } from '../middlewares/isWho';
 import jobRoutes from './job.routes';
 
@@ -32,6 +32,8 @@ class UserRoutes {
         );
         this.router.delete('/category/:id',passport.authenticate('jwt', { session: false }),
         isAdmin, updateCategoryById);
+        this.router.get('/cities', passport.authenticate('jwt', { session: false }),
+        isAdmin, getAllCities);
         this.router.get('/category', getAllCategory)
         this.router.use('/', jobRoutes);
     }
