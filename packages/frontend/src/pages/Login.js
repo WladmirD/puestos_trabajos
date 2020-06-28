@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./styles/Login.css";
 import { useAppContext } from "../libs/contextLib";
+import axios from 'axios';
 
 export default function Login() {
   const { userHasAuthenticated } = useAppContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
 
   function validateForm() {
     return email.length > 0 && password.length > 0;
@@ -16,10 +18,12 @@ export default function Login() {
     event.preventDefault();
   
     try {
-      //Auth usando AWS-Amplify
-      //await Auth.signIn(email, password);
+      const responseLog = await axios.post('http://69.55.55.239:8080/api/logIn',{
+        email ,
+        password
+      })
+      console.log(responseLog)
       userHasAuthenticated(true);
-      alert("Logged in");
     } catch (e) {
       alert(e.message);
     }
