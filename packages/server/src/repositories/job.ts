@@ -81,6 +81,21 @@ export async function searchKeyword(search: string | any) {
     const jobs = manipulateData(result);
     return jobs;
 }
+
+export async function getJobCategory(category: string | any) {
+    const result = await getRepository(Job)
+        .createQueryBuilder('job')
+        .select(['job.id', 'job.posicion', 'job.address', 'job.created_time'])
+        .innerJoinAndSelect('job.category', 'category', 'category.isActive = :category', {
+            category: true,
+        })
+        .innerJoinAndSelect('job.city', 'city')
+        .innerJoinAndSelect('job.owner', 'owner')
+        .where('category.name = :categoryName', { categoryName: category })
+        .getMany();
+    const jobs = manipulateData(result);
+    return jobs;
+}
 export async function deleteJob(id: number | any) {
     return await getRepository(Job).delete({ id: id });
 }

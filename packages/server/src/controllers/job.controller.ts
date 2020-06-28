@@ -8,6 +8,7 @@ import {
     getAllJob,
     deleteJob,
     searchKeyword,
+    getJobCategory,
 } from '../repositories/job';
 import { findNumPag } from '../repositories/general';
 import errorException from '../utils/errors';
@@ -52,8 +53,12 @@ export async function getJobs(req: Request, res: Response, next: NextFunction) {
     try {
         const { page } = req.query || 1;
         const { search } = req.query;
+        const { category } = req.query;
         if (search) {
             const jobs = await searchKeyword(search);
+            res.status(200).json(jobs);
+        } else if (category) {
+            const jobs = await getJobCategory(category);
             res.status(200).json(jobs);
         } else {
             const limit = await findNumPag();
