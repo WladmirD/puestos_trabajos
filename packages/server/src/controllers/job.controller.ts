@@ -4,7 +4,7 @@ import { Job } from '../entity/job.entity';
 import { City } from '../entity/city.entity';
 import { TimeWork } from '../entity/time_work.entity';
 import { Category } from '../entity/category.entity';
-import { createJob, findByIdJob, IJob, getAllJob, deleteJob } from '../repositories/job';
+import { createJob, findByIdJob, IJob, getAllJob, deleteJob, searchKeyword } from '../repositories/job';
 import { findNumPag } from '../repositories/general';
 import { findById } from '../repositories/general';
 import errorException from '../utils/errors';
@@ -48,9 +48,16 @@ export async function findJob(req: Request, res: Response, next: NextFunction) {
 export async function getJobs(req: Request, res: Response, next: NextFunction) {
     try {
         const { page } = req.query || 1;
-        const limit = await findNumPag();
-        const jobs = await getAllJob(limit, page);
-        res.status(200).json(jobs);
+        const { search } = req.query;
+        if ( search) {
+            const jobs = await searchKeyword(search);
+            res.status(200).json(jobs);
+        }
+        else {
+            const limit = await findNumPag();
+            const jobs = await getAllJob(limit, page);
+            res.status(200).json(jobs);
+        }
     } catch (err) {
         next(err);
     }

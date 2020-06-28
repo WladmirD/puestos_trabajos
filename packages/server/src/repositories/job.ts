@@ -61,7 +61,21 @@ export async function getAllJob(limit: number | any, pages: number | any) {
     const jobs = manipulateData(result);
     return {jobs, total: Math.ceil(total/limit)};
 }
-
+export async function searchKeyword(search: string | any) {
+    const result = await getRepository(Job).createQueryBuilder('job')
+                        .select(["job.id","job.posicion","job.address","job.created_time"])
+                        .innerJoinAndSelect('job.category', 'category', 'category.isActive = :category', { category: true})
+                        .innerJoinAndSelect('job.city','city')
+                        .innerJoinAndSelect('job.owner','owner')
+                        .where('job.posicion like :search', { search: `%${search}%`})
+                        .orWhere('job.address like :search', { search: `%${search}%`})
+                        .orWhere('category.name like :search', { search: `%${search}%`})
+                        .orWhere('city.name like :search', { search: `%${search}%`})
+                        .orWhere('owner.name like :search', { search: `%${search}%`})
+                        .getMany();
+    const jobs = manipulateData(result);
+    return jobs;
+}
 export async function deleteJob(id: number | any) {
     return await getRepository(Job).delete({ id: id});
 }
@@ -69,12 +83,6 @@ export async function deleteJob(id: number | any) {
 
 function manipulateData(datos : Array<any>) {
     datos.map(data => {
-            delete data.owner.id;
-            delete data.owner.email;
-            delete data.owner.roleId;
-            delete data.owner.created_At;
-            delete data.owner.password;
-            delete data.category.id;
             data.owner = data.owner.name;
             data.category = data.category.name;
             data.city = data.city.name;
