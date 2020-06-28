@@ -47,7 +47,7 @@ export async function findByIdJob(id: number) {
 }
 
 export async function getAllJob(limit: number | any, pages: number | any) {
-    const [result, total] = await getRepository(Job).findAndCount({
+    const result = await getRepository(Job).find({
         select: ['id', 'posicion', 'address', 'city', 'created_time', 'owner', 'category'],
         relations: ['owner', 'category'],
         order: {
@@ -57,12 +57,14 @@ export async function getAllJob(limit: number | any, pages: number | any) {
         skip: (pages - 1) * limit,
     });
     const jobs = manipulateData(result)
-    return { jobs, total: Math.ceil(total / limit) };
+    return { jobs, total: Math.ceil(jobs.length / limit) };
 }
 
-function manipulateData(datas : Array<any>) {
-    datas.map(data => {
-        if (data.category.isActive === true) {
+function manipulateData(datos : Array<any>) {
+    const result = datos.filter(data => {
+        return data.category.isActive === true;
+    });
+    result.map(data => {
             delete data.owner.id;
             delete data.owner.email;
             delete data.owner.roleId;
@@ -72,8 +74,7 @@ function manipulateData(datas : Array<any>) {
             delete data.category.id;
             data.category = data.category.name;
             return data;
-        }
     })
-    return datas;
+    return result;
 }
 
