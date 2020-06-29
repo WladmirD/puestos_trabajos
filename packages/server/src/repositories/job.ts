@@ -29,21 +29,30 @@ export async function createJob(job: Job): Promise<Job | undefined> {
  * @return object type IJob
  */
 export async function findByIdJob(id: number) {
-    const [result]: Job | any = await getRepository(Job).find({ id: id });
-    const job: IJob | any = new Object();
-    job['id'] = result.id;
-    job['posicion'] = result.posicion;
-    const { name: category } = result.category;
-    job['category'] = category;
-    job['address'] = result.address;
-    const { name: city } = result.city;
-    job['city'] = city;
-    job['url_logo'] = result.url_logo ? result.url_logo : undefined;
-    job['description'] = result.description;
-    job['created_time'] = result.created_time;
-    const { name: owner } = result.owner;
-    job['owner'] = owner;
-    return job;
+    const [result]: Job | any = await getRepository(Job).find({
+        select: [
+            'posicion',
+            'address',
+            'url_logo',
+            'description',
+            'created_time',
+            'category',
+            'city',
+            'owner',
+            'type',
+        ],
+        relations: ['category', 'city', 'owner', 'type'],
+        where: { id: id },
+    });
+    result.category = result.category.name;
+    result.city = result.city.name;
+    result.type = result.type.name;
+    delete result.owner.id;
+    delete result.owner.password;
+    delete result.owner.roleId;
+    delete result.owner.created_At;
+    delete result.owner.type;
+    return result;
 }
 
 export async function getAllJob(limit: number | any, pages: number | any) {
