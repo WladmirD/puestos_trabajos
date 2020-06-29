@@ -3,10 +3,10 @@ import "./styles/jobdetails.css";
 import { } from "react-bootstrap";
 import axios from 'axios';
 
-export default function Jobdetails({id}) {
+export default function Jobdetails(id) {
 
 const [idtitulojob, setIdtitulojob] = useState("");
-setIdtitulojob (id);
+//setIdtitulojob (id);
     useEffect( async () => {
         const fetchData = async () =>{
         const responsejob = await axios.get(`http://69.55.55.239:8080/api/jobs/${id}`,{});
@@ -16,23 +16,23 @@ setIdtitulojob (id);
     }
     fetchData();
     }, []);
-    const {id, posicion, category, address, city, url_logo,
-         description, created_time, owner, type} = setIdtitulojob;  
+    const { posicion, category, address, city, url_logo,
+         description,  owner, type} = setIdtitulojob;  
 
 return (
     <div className="jobdetails">
         <div className="details">
-            <h1>{owner.name}</h1>
-            <h2>{city}</h2>
+            <h1>{owner}</h1>
+            <h2>{address},{city}</h2>
             <hr />
             <p>{category} - {type}</p>
             <hr />
             <p>{posicion}</p>
             <p>{description}</p>
-            <p>Send your resume to {owner.email}</p>
+            <p>Send your resume to {owner}</p>
         </div>
         <div className="LogoJob" >
-            <img src={url_logo} />
+        <img src={url_logo} />
         </div>
     </div>
 
