@@ -16,17 +16,21 @@ const{id, posicion, category, address, city, url_logo, description,
  created_time, owner, type} = responsejob;
 return (
     <div className="jobdetails">
-        <h1>{owner.name}</h1>
-        <h2>{city}</h2>
-        <hr />
-        <p>{category} - {type}</p>
-        <hr />
-        <img src={url_logo} />
-        <p>{posicion}</p>
-        <p>{description}</p>
-        <p>Send your resume to {owner.email}</p>
-
+        <div className="details">
+            <h1>{owner.name}</h1>
+            <h2>{city}</h2>
+            <hr />
+            <p>{category} - {type}</p>
+            <hr />
+            <p>{posicion}</p>
+            <p>{description}</p>
+            <p>Send your resume to {owner.email}</p>
+        </div>
+        <div className="LogoJob" >
+            <img src={url_logo} />
+        </div>
     </div>
+
 );
 }
 
