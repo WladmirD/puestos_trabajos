@@ -7,16 +7,17 @@ export default function Jobdetails({id}) {
 
 const [idtitulojob, setIdtitulojob] = useState("");
 setIdtitulojob (id);
-    useEffect(() => {
-        async function fetchMyAPI(){
-            return await axios.get(`http://69.55.55.239:8080/api/jobs/${id}`,{})
+    useEffect( async () => {
+        const fetchData = async () =>{
+        const responsejob = await axios.get(`http://69.55.55.239:8080/api/jobs/${id}`,{});
 
-        }
-        console.log(responsejob);
-        const {id, posicion, category, address, city, url_logo, description,
-            created_time, owner, type} = responsejob;    
-    });
-    const responsejob = await fetchMyAPI();  
+        setIdtitulojob(responsejob.idtitulojob)
+        //console.log(responsejob); 
+    }
+    fetchData();
+    }, []);
+    const {id, posicion, category, address, city, url_logo,
+         description, created_time, owner, type} = setIdtitulojob;  
 
 return (
     <div className="jobdetails">
