@@ -20,8 +20,8 @@ const [idtitulojob, setIdtitulojob] = useState("");
          description,  owner, type} = setIdtitulojob;  
 
 return (
-    <div className="jobdetails">
-        <div className="details">
+    <div class="row" className="jobdetails">
+        <div class="column" className="details">
             <h1>{owner}</h1>
             <h2>{address},{city}</h2>
             <hr />
@@ -31,8 +31,8 @@ return (
             <p>{description}</p>
             <p>Send your resume to {owner}</p>
         </div>
-        <div className="LogoJob" >
-        <img src={url_logo} />
+        <div class="column" className="LogoJob" >
+        <img src={url_logo} alt="Broken" />
         </div>
     </div>
 
