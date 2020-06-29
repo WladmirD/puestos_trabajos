@@ -1,19 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles/jobdetails.css";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { } from "react-bootstrap";
 import axios from 'axios';
 
-export default function jobdetails({id}) {
+export default function Jobdetails({id}) {
+
 const [idtitulojob, setIdtitulojob] = useState("");
 setIdtitulojob (id);
     useEffect(() => {
-        const responsejob = await axios.get(`http://69.55.55.239:8080/api/jobs/${id}`,{
+        async function fetchMyAPI(){
+            return await axios.get(`http://69.55.55.239:8080/api/jobs/${id}`,{})
 
-        })
+        }
         console.log(responsejob);
-    });   
-const{id, posicion, category, address, city, url_logo, description,
- created_time, owner, type} = responsejob;
+        const {id, posicion, category, address, city, url_logo, description,
+            created_time, owner, type} = responsejob;    
+    });
+    const responsejob = await fetchMyAPI();  
+
 return (
     <div className="jobdetails">
         <div className="details">

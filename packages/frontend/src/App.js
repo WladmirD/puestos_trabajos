@@ -31,14 +31,18 @@ function App() {
       <LinkContainer to="/login">
         <NavItem>Login</NavItem>
       </LinkContainer>
+      <LinkContainer to="/jobdetails">
+        <NavItem>Job Details</NavItem>
+      </LinkContainer>
     </>
 
 }
               <LinkContainer to="/workStation">
               <NavItem>Buscar Trabajos</NavItem>
             </LinkContainer>
-
+            
           </Nav>
+
         </Navbar.Collapse>
       </Navbar>
       <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>

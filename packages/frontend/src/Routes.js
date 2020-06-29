@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
+import Jobdetails from "./pages/jobdetails"
 
 import WorkStation from "./pages/workStation.js";
 
@@ -18,6 +19,9 @@ export default function Routes() {
 
       <Route exact path="/workStation">
         <WorkStation />
+      </Route>
+      <Route exact path="/jobdetails">
+        <Jobdetails />
       </Route>
 
 
