@@ -86,6 +86,7 @@ export async function searchKeyword(search: string | any) {
         .orWhere('category.name like :search', { search: `%${search}%` })
         .orWhere('city.name like :search', { search: `%${search}%` })
         .orWhere('owner.name like :search', { search: `%${search}%` })
+        .orderBy('job.created_time', 'DESC')
         .getMany();
     const jobs = manipulateData(result);
     return jobs;
