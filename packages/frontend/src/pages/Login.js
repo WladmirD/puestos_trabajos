@@ -8,7 +8,10 @@ export default function Login() {
   const { userHasAuthenticated } = useAppContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  const [formLogin, setFormLogin] = useState({
+    email: "",
+    password: "",
+  });
 
   function validateForm() {
     return email.length > 0 && password.length > 0;
