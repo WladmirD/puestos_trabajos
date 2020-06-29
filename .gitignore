@@ -18,6 +18,9 @@ dist/
 # testing
 /coverage
 
+# Npm package
+package-lock.json
+
 # production
 /build
 /yarn.lock
