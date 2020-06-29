@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Request, Response, NextFunction } from 'express';
+import cloudinary from 'cloudinary';
+import fs from 'fs-extra';
 import { Job } from '../entity/job.entity';
 import {
     createJob,
@@ -28,7 +30,9 @@ export async function createJobCT(req: Request, res: Response, next: NextFunctio
         job.userId = req.user?.id;
         job.cityId = city;
         job.typeId = type;
-        job.url_logo = req.file ? `${req.file.filename}` : 'Ninguno';
+        const result = await cloudinary.v2.uploader.upload(req.file.path);
+        job.url_logo = req.file ? result.url : 'https://res.cloudinary.com/dkgcofgap/image/upload/v1593446199/cat_ycqk39.jpg';
+        await fs.unlink(req.file.path);
         await createJob(job);
         res.status(201).json({ message: 'Created.' });
     } catch (err) {

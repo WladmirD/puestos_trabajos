@@ -1,6 +1,6 @@
 import Express, { Application } from 'express';
 import cors from 'cors';
-import path from 'path';
+import cloudinary from 'cloudinary';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
@@ -21,6 +21,7 @@ class App {
         this.plugins();
         this.db();
         this.routes();
+        this.uploadPhoto();
         this.errors();
     }
 
@@ -41,8 +42,16 @@ class App {
 
     protected routes(): void {
         this.app.use('/api', authRouter);
-        this.app.use('/public', Express.static(path.join(__dirname, '../images')));
     }
+
+    protected uploadPhoto(): void {
+        cloudinary.v2.config({
+            cloud_name: config.cloudinary.cloud_name,
+            api_key: config.cloudinary.api_key,
+            api_secret: config.cloudinary.api_secret
+        })
+    }
+
     protected errors(): void {
         this.app.use(handleErrors);
     }
