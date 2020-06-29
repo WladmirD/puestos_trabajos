@@ -4,7 +4,7 @@ import { Role } from '../entity/role.entity';
 import { createUser, checkUser, IUser } from '../repositories/user';
 import { comparePassword, hashedPassword, generateToken } from '../auth/index';
 import errorException from '../utils/errors';
-import { findById } from '../repositories/general';
+import { findId } from '../repositories/general';
 
 export async function signUp(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
@@ -16,7 +16,7 @@ export async function signUp(req: Request, res: Response, next: NextFunction): P
         user['name'] = name;
         user['email'] = email;
         user['password'] = await hashedPassword(password);
-        user['roleId'] = await findById(role, Role);
+        user['roleId'] = await findId(role, Role);
         user['url'] = url;
         await createUser(user);
         return res.status(201).json({ message: 'Created' });

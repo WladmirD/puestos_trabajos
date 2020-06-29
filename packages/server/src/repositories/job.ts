@@ -47,7 +47,6 @@ export async function findByIdJob(id: number) {
     result.category = result.category.name;
     result.city = result.city.name;
     result.type = result.type.name;
-    delete result.owner.id;
     delete result.owner.password;
     delete result.owner.roleId;
     delete result.owner.created_At;
@@ -108,6 +107,10 @@ export async function getJobCategory(category: string | any) {
 }
 export async function deleteJob(id: number | any) {
     return await getRepository(Job).delete({ id: id });
+}
+
+export async function updateJobById(job: Job, id: number | any) {
+    return await getRepository(Job).update({ id: id}, job);
 }
 
 function manipulateData(datos: Array<any>) {

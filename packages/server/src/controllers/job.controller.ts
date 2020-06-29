@@ -11,9 +11,13 @@ import {
     deleteJob,
     searchKeyword,
     getJobCategory,
+    updateJobById
 } from '../repositories/job';
-import { findNumPag } from '../repositories/general';
+import { findNumPag, findId } from '../repositories/general';
+import { Category } from '../entity/category.entity';
 import errorException from '../utils/errors';
+import { City } from '../entity/city.entity';
+import {TimeWork } from '../entity/time_work.entity';
 
 export async function createJobCT(req: Request, res: Response, next: NextFunction) {
     try {
@@ -83,6 +87,32 @@ export async function deleteJobById(req: Request, res: Response, next: NextFunct
         await deleteJob(id);
         res.status(200).json({ message: 'Deleted.' });
     } catch (err) {
+        next(err);
+    }
+}
+
+export async function updateJob(req: Request, res:Response, next: NextFunction) {
+    try {
+        const { id } = req.params;
+        const { posicion, category, address, city, type, description, url_logo, owner } = req.body;
+        const job = new Job();
+        job.posicion = posicion;
+        job.address = address;
+        job.description = description;
+        job.categoryId = await findId(category, Category);
+        // @ts-ignore
+        job.userId = owner.id;
+        job.cityId = await findId(city, City);
+        job.typeId = await findId(type, TimeWork);
+        job.url_logo = url_logo;
+        if ( req.file) {
+            const result = await cloudinary.v2.uploader.upload(req.file.path);
+            await fs.unlink(req.file.path)
+            job.url_logo = result.url;
+        }
+        await updateJobById(job, id);
+        res.status(201).json({ message: 'Updated.' });
+    } catch(err) {
         next(err);
     }
 }

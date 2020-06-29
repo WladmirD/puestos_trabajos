@@ -2,7 +2,7 @@ import { Router } from 'express';
 import passport from 'passport';
 import multer from 'multer';
 
-import { createJobCT, findJob, getJobs, deleteJobById } from '../controllers/job.controller';
+import { createJobCT, findJob, getJobs, deleteJobById, updateJob } from '../controllers/job.controller';
 import { isPoster, isAdmin } from '../middlewares/isWho';
 import midMulter from '../middlewares/multer';
 
@@ -24,6 +24,7 @@ class UserRoutes {
             createJobCT,
         );
         this.router.get('/jobs/:id', passport.authenticate('jwt', { session: false }), findJob);
+        this.router.put('/jobs/:id', passport.authenticate('jwt', { session: false }),isAdmin,multer(midMulter).single('image'), updateJob)
         this.router.delete(
             '/jobs/:id',
             passport.authenticate('jwt', { session: false }),
