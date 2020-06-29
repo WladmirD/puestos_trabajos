@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import moment from "moment";
 
 import "./styles/workStation.css";
 
 //URL API
-const urlWorkStacionGet = "http://69.55.55.239:8080/api/jobs?search=";
+const urlWorkStacionGet = "http://69.55.55.239:8080/api/jobs?category=";
 
 export default function WorkStation() {
 
@@ -58,7 +57,7 @@ export default function WorkStation() {
                                 <tr>
                                     <td>{job.posicion}</td>
                                     <td>{job.address}</td>
-                                    <td>{moment(new Date(job.created_time)).format("MMM Do YYYY")}</td>
+                                    <td>{job.created_time}</td>
                                     <td>{job.category}</td>
                                     <td>{job.city}</td>
                                     <td>{job.owner}</td>
