@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./styles/workStation.css";
 
 //URL API
-const urlWorkStacionGet = "http://69.55.55.239:8080/api/jobs?category=";
+const urlWorkStacionGet = "http://69.55.55.239:8080/api/jobs?search=";
 
 export default function WorkStation() {
 

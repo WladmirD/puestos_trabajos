@@ -7,15 +7,15 @@ export default function Jobdetails(id) {
 
 const [idtitulojob, setIdtitulojob] = useState("");
 //setIdtitulojob (id);
-    useEffect( async () => {
-        const fetchData = async () =>{
-        const responsejob = await axios.get(`http://69.55.55.239:8080/api/jobs/${id}`,{});
+    // useEffect( async () => {
+    //     const fetchData = async () =>{
+    //     const responsejob = await axios.get(`http://69.55.55.239:8080/api/jobs/${id}`,{});
 
-        setIdtitulojob(responsejob.idtitulojob)
-        //console.log(responsejob); 
-    }
-    fetchData();
-    }, []);
+    //     setIdtitulojob(responsejob.idtitulojob)
+    //     //console.log(responsejob); 
+    // }
+    // fetchData();
+    // }, []);
     const { posicion, category, address, city, url_logo,
          description,  owner, type} = setIdtitulojob;  
 
