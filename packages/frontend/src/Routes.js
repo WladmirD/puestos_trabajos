@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Jobdetails from "./pages/jobdetails"
+import F1 from "./pages/F1"
 
 import WorkStation from "./pages/workStation.js";
 
@@ -17,12 +18,18 @@ export default function Routes() {
         <Login />
       </Route>
 
+      
+      <Route exact path="/F1">
+        <F1 />
+      </Route>
+
       <Route exact path="/workStation">
         <WorkStation />
       </Route>
       <Route exact path="/jobdetails">
         <Jobdetails />
       </Route>
+
 
 
       {/* Finally, catch all unmatched routes */}

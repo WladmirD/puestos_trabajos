@@ -34,6 +34,9 @@ function App() {
       <LinkContainer to="/jobdetails">
         <NavItem>Job Details</NavItem>
       </LinkContainer>
+      <LinkContainer to="/F1">
+        <NavItem>F1</NavItem>
+      </LinkContainer>
     </>
 
 }
