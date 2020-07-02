@@ -29,11 +29,11 @@ export async function createJobCT(req: Request, res: Response, next: NextFunctio
         job.posicion = posicion;
         job.address = address;
         job.description = description;
-        job.categoryId = category;
+        job.categoryId = await findId(category, Category);
         // @ts-ignore
         job.userId = req.user?.id;
-        job.cityId = city;
-        job.typeId = type;
+        job.cityId = await findId(city, City);
+        job.typeId = await findId(type, TimeWork);
         const result = await cloudinary.v2.uploader.upload(req.file.path);
         job.url_logo = req.file ? result.url : 'https://res.cloudinary.com/dkgcofgap/image/upload/v1593446199/cat_ycqk39.jpg';
         await fs.unlink(req.file.path);

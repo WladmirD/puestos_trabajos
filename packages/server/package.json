@@ -55,7 +55,6 @@
     "reflect-metadata": "^0.1.13",
     "tsc": "^1.20150623.0",
     "typeorm": "^0.2.25",
-    "typescript": "^3.9.5",
-    "uuid": "^8.2.0"
+    "typescript": "^3.9.5"
   }
 }
