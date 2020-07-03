@@ -5,12 +5,14 @@ import { Nav, Navbar, NavItem } from "react-bootstrap";
 import "./App.css";
 import Routes from "./Routes";
 import { AppContext } from "./libs/contextLib";
+import { removeJwt } from './services/headers';
 
 function App() {
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [user, setUser] = useState({});
   function handleLogout() {
     userHasAuthenticated(false);
+    removeJwt();
   }
   return (
     <div className="App container">

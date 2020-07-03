@@ -1,7 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./styles/Login.css";
-import { useAppContext, AppContext } from "../libs/contextLib";
+import { useAppContext } from "../libs/contextLib";
+import { setJwt } from '../services/headers';
 import axios from 'axios';
 
 export default function Login() {
@@ -26,7 +27,8 @@ export default function Login() {
         password
       })
       console.log(responseLog)
-      setUser(responseLog.data.user)
+      setUser(responseLog.data.user);
+      setJwt(responseLog.data.token);
       userHasAuthenticated(true);
     } catch (e) {
       alert(e.message);
