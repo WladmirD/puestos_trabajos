@@ -1,16 +1,17 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { LinkContainer } from "react-router-bootstrap";
 
 import { Link } from "react-router-dom";
 import { Nav, Navbar, NavItem } from "react-bootstrap";
-import { AppContext } from "../libs/contextLib";
+import { useAppContext } from "../libs/contextLib";
 import { removeJwt } from '../services/headers';
 
 
 const Header = () => {
-    const [isAuthenticated, userHasAuthenticated] = useState(false);
+  const context = useAppContext();
     function handleLogout() {
-        userHasAuthenticated(false);
+        context.userHasAuthenticated(false);
+        context.setUser({});
         removeJwt();
     }
     return (
@@ -24,7 +25,7 @@ const Header = () => {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
-          {isAuthenticated
+          {context.isAuthenticated
   ? <NavItem onClick={handleLogout}>Logout</NavItem>
   : <>
       <LinkContainer to="/signup">

@@ -27,9 +27,10 @@ export default function Jobdetails({}) {
          
 return (
     <>
+    <Layout>
     <div  className="jobdetails">
          <div  className="details">
-              <h1>{job.owner}</h1> 
+              <h1>{job.owner}</h1>
             {/* <h2>{job.address},{job.city}</h2>
             <hr />
             <p>{job.category} - {job.type}</p>
@@ -42,6 +43,7 @@ return (
         {/* <img src={job.url_logo} alt="Broken" /> */}
         </div> 
     </div>
+    </Layout>
     </>
 
 );
