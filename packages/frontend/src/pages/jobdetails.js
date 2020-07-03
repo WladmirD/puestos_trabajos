@@ -3,37 +3,42 @@ import "./styles/jobdetails.css";
 import { } from "react-bootstrap";
 import axios from 'axios';
 
-export default function Jobdetails(id) {
+export default function Jobdetails({}) {
 
-const [idtitulojob, setIdtitulojob] = useState("");
-//setIdtitulojob (id);
-    // useEffect( async () => {
-    //     const fetchData = async () =>{
-    //     const responsejob = await axios.get(`http://69.55.55.239:8080/api/jobs/${id}`,{});
+    const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6IkFkbWluaXN0cmFkb3IiLCJpYXQiOjE1OTM3MzgzMTAsImV4cCI6MTU5Mzc0MTkxMH0.1DfA94_naFsrr1HRnrY3tUh0NOiIbHjVaDz9dn6sd18";
+    const config= {headers: {"Authorization": `Bearer ${token}`}};
+    const [job, setJob] = useState({});
+    
 
-    //     setIdtitulojob(responsejob.idtitulojob)
-    //     //console.log(responsejob); 
-    // }
-    // fetchData();
-    // }, []);
-    const { posicion, category, address, city, url_logo,
-         description,  owner, type} = setIdtitulojob;  
+     useEffect(()=> {
+         async function fetchData(){
+             
+         const responsejob = await axios.get(`http://69.55.55.239:8080/api/jobs/6`, config);
 
+
+         setJob(responsejob.data);
+         //console.log(job); 
+     }
+     fetchData();
+     }, []);
+
+
+         
 return (
-    <div class="row" className="jobdetails">
-        <div class="column" className="details">
-            <h1>{owner}</h1>
-            <h2>{address},{city}</h2>
+    <div  className="jobdetails">
+         <div  className="details">
+              <h1>{job.owner}</h1> 
+            {/* <h2>{job.address},{job.city}</h2>
             <hr />
-            <p>{category} - {type}</p>
+            <p>{job.category} - {job.type}</p>
             <hr />
-            <p>{posicion}</p>
-            <p>{description}</p>
-            <p>Send your resume to {owner}</p>
+            <p>{job.posicion}</p>
+            <p>{job.description}</p>
+            <p>Send your resume to {job.owner}</p> */}
         </div>
-        <div class="column" className="LogoJob" >
-        <img src={url_logo} alt="Broken" />
-        </div>
+        <div  className="LogoJob" >
+        {/* <img src={job.url_logo} alt="Broken" /> */}
+        </div> 
     </div>
 
 );
