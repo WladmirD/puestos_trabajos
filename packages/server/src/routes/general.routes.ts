@@ -42,8 +42,6 @@ class UserRoutes {
         );
         this.router.get(
             '/cities',
-            passport.authenticate('jwt', { session: false }),
-            isAdmin,
             getAllCities,
         );
         this.router.get('/category', getAllCategory);
