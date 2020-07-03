@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./styles/Login.css";
-import { useAppContext } from "../libs/contextLib";
+import { useAppContext, AppContext } from "../libs/contextLib";
 import axios from 'axios';
 
 export default function Login() {
-  const { userHasAuthenticated } = useAppContext();
+  const { userHasAuthenticated, setUser } = useAppContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formLogin, setFormLogin] = useState({
@@ -26,6 +26,7 @@ export default function Login() {
         password
       })
       console.log(responseLog)
+      setUser(responseLog.data.user)
       userHasAuthenticated(true);
     } catch (e) {
       alert(e.message);

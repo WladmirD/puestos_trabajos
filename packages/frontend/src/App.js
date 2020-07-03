@@ -8,6 +8,7 @@ import { AppContext } from "./libs/contextLib";
 
 function App() {
   const [isAuthenticated, userHasAuthenticated] = useState(false);
+  const [user, setUser] = useState({});
   function handleLogout() {
     userHasAuthenticated(false);
   }
@@ -43,12 +44,11 @@ function App() {
               <LinkContainer to="/workStation">
               <NavItem>Buscar Trabajos</NavItem>
             </LinkContainer>
-            
           </Nav>
 
         </Navbar.Collapse>
       </Navbar>
-      <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>
+      <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated, user, setUser }}>
   <Routes />
 </AppContext.Provider>
     </div>
