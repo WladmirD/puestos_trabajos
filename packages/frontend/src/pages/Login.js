@@ -3,16 +3,13 @@ import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./styles/Login.css";
 import { useAppContext } from "../libs/contextLib";
 import { setJwt } from '../services/headers';
+import Layout from '../components/layout';
 import axios from 'axios';
 
 export default function Login() {
   const { userHasAuthenticated, setUser } = useAppContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [formLogin, setFormLogin] = useState({
-    email: "",
-    password: "",
-  });
 
   function validateForm() {
     return email.length > 0 && password.length > 0;
@@ -36,6 +33,8 @@ export default function Login() {
   }
 
   return (
+    <>
+    <Layout>
     <div className="Login">
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="email" bsSize="large">
@@ -60,5 +59,7 @@ export default function Login() {
         </Button>
       </form>
     </div>
+    </Layout>
+    </>
   );
 }

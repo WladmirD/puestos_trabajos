@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./styles/jobdetails.css";
 import { } from "react-bootstrap";
+import Layout from '../components/layout';
 import axios from 'axios';
 
 export default function Jobdetails({}) {
@@ -25,6 +26,7 @@ export default function Jobdetails({}) {
 
          
 return (
+    <>
     <div  className="jobdetails">
          <div  className="details">
               <h1>{job.owner}</h1> 
@@ -40,6 +42,7 @@ return (
         {/* <img src={job.url_logo} alt="Broken" /> */}
         </div> 
     </div>
+    </>
 
 );
 }

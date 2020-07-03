@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Moment from 'react-moment';
 
 import "./styles/workStation.css";
+import Layout from '../components/layout';
 
 //URL API
 const urlWorkStacionGet = "http://69.55.55.239:8080/api/jobs?search=";
@@ -94,6 +95,7 @@ export default function WorkStation() {
     }
 
     return (
+        <Layout>
         <div>
             <div className="main-workStation">
                 <div>
@@ -117,5 +119,6 @@ export default function WorkStation() {
             </div>
 
         </div>
+        </Layout>
     );
 }
