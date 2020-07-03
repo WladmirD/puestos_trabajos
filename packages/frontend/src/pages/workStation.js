@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Moment from 'react-moment';
 
 import "./styles/workStation.css";
 
@@ -9,10 +10,6 @@ export default function WorkStation() {
 
     const [search, setSearch] = useState("");
     const [workStation, setWorkStation] = useState([]);
-
-    console.log(urlWorkStacionGet);
-    console.log(workStation);
-    console.log(search);
 
     function getWorkStacion() {
 
@@ -57,7 +54,7 @@ export default function WorkStation() {
                                 <tr>
                                     <td>{job.posicion}</td>
                                     <td>{job.address}</td>
-                                    <td>{job.created_time}</td>
+                                    <td><Moment fromNow>{job.created_time}</Moment></td>
                                     <td>{job.category}</td>
                                     <td>{job.city}</td>
                                     <td>{job.owner}</td>
@@ -111,10 +108,10 @@ export default function WorkStation() {
 
             <div className="scroll-bar">
                 {
-                    workStation.length ? 
+                    workStation.length ?
                     (<ListJobs jobs={workStation} />) 
-                    : 
-                    (<hi>Welcome</hi>)
+                    :
+                    (<h1>Welcome</h1>)
                 }
 
             </div>
