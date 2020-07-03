@@ -17,7 +17,6 @@ export default function Login() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-  
     try {
       const responseLog = await axios.post('http://69.55.55.239:8080/api/logIn',{
         email ,
@@ -27,6 +26,8 @@ export default function Login() {
       setUser(responseLog.data.user);
       setJwt(responseLog.data.token);
       userHasAuthenticated(true);
+      setEmail("");
+      setPassword("");
     } catch (e) {
       alert(e.message);
     }
