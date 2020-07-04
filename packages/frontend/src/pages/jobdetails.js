@@ -1,30 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from 'react-router-dom';
 import "./styles/jobdetails.css";
 import { } from "react-bootstrap";
 import Layout from '../components/layout';
+import { config } from '../services/headers';
 import axios from 'axios';
 
 export default function Jobdetails() {
+    const { id } = useParams();
     const [job, setJob] = useState({posicion:"", address:"", url_logo: "", description:"", created_time:"", category:"", city:"", owner:{id:"", name:"", email:"", url:""}, type:""});
-    const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6IkFkbWluaXN0cmFkb3IiLCJpYXQiOjE1OTM4OTYzMTEsImV4cCI6MTU5Mzg5OTkxMX0.VQj27SieiSDGLW5Mu41X4ZUYkID6AL_Vyds3ILIhkmc";
-    const config= {headers: {"Authorization": `Bearer ${token}`}};
      useEffect(()=> {
-       
          async function fetchData(){
-                         
-         const responsejob = await axios.get(`http://69.55.55.239:8080/api/jobs/6`, config);
-            
+         const responsejob = await axios.get(`http://69.55.55.239:8080/api/jobs/${id}`, config());
           setJob(responsejob.data);
-
-
      }
      fetchData();
-     }, []);
-
-     
-
-
-         
+     }, [id]);
 return (
     <>
     <Layout>

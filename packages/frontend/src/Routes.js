@@ -29,7 +29,7 @@ export default function Routes() {
       <Route exact path="/workStation">
         <WorkStation />
       </Route>
-      <Route exact path="/jobdetails">
+      <Route exact path="/jobdetails/:id">
         <Jobdetails />
       </Route>
     <Route exact path="/admin">

@@ -1,7 +1,6 @@
 /* eslint-disable no-new-object */
 import React, { useState} from 'react';
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import { Redirect } from 'react-router-dom';
 import "./styles/signup.css";
 import { user, poster } from '../libs/constant';
 import axios from 'axios';
