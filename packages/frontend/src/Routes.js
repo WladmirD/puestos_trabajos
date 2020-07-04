@@ -4,7 +4,8 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Jobdetails from "./pages/jobdetails"
-import F1 from "./pages/F1"
+import F1 from "./pages/F1";
+import Admin from './pages/Admin';
 
 import WorkStation from "./pages/workStation.js";
 
@@ -17,8 +18,6 @@ export default function Routes() {
       <Route exact path="/login">
         <Login />
       </Route>
-
-      
       <Route exact path="/F1">
         <F1 />
       </Route>
@@ -29,7 +28,9 @@ export default function Routes() {
       <Route exact path="/jobdetails">
         <Jobdetails />
       </Route>
-
+    <Route exact path="/admin">
+    <Admin />
+    </Route>
 
 
       {/* Finally, catch all unmatched routes */}
