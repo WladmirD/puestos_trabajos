@@ -14,8 +14,6 @@ export default function Jobdetails() {
                          
          const responsejob = await axios.get(`http://69.55.55.239:8080/api/jobs/6`, config);
             
-            //console.log(x);
-          //console.log(responsejob.data);
           setJob(responsejob.data);
 
 
