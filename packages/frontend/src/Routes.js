@@ -8,6 +8,7 @@ import F1 from "./pages/F1";
 import Admin from './pages/Admin';
 
 import WorkStation from "./pages/workStation.js";
+import SignUp from './pages/SignUp';
 
 export default function Routes() {
   return (
@@ -17,6 +18,9 @@ export default function Routes() {
       </Route>
       <Route exact path="/login">
         <Login />
+      </Route>
+      <Route exact path="/signUp">
+      <SignUp/>
       </Route>
       <Route exact path="/F1">
         <F1 />
