@@ -33,7 +33,7 @@ return (
              <h1>{job.owner.name}</h1>  
             <h2>{job.address}, {job.city}</h2>
             <hr />
-            <p>{job.category} - {job.type}</p>
+            <p>{job.category} | {job.type}</p>
             <hr />
             <p>{job.posicion}</p>
             <p>{job.description}</p>
