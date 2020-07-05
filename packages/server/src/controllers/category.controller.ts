@@ -7,10 +7,11 @@ import errorException from '../utils/errors';
 export async function updateCategoryById(req: Request, res: Response, next: NextFunction) {
     try {
         const { id } = req.params;
+        const update = req.body.update ? req.body.update : false;
         if (!id) {
             throw new errorException(400, 'Missing parameters.');
         }
-        await updateCategory(id);
+        await updateCategory(id, update);
         res.status(200).json({ message: 'Ok' });
     } catch (err) {
         next(err);

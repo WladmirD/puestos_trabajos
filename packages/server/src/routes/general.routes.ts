@@ -36,7 +36,7 @@ class UserRoutes {
             isAdmin,
             updatePag,
         );
-        this.router.delete(
+        this.router.put(
             '/category/:id',
             passport.authenticate('jwt', { session: false }),
             isAdmin,
@@ -51,9 +51,7 @@ class UserRoutes {
             getAdminCategory,
         );
         this.router.post(
-            'category',
-            passport.authenticate('jwt', { session: false }),
-            isAdmin,
+            '/category',
             createCategory,
         );
         this.router.use('/', jobRoutes);

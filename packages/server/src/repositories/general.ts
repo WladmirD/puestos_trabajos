@@ -35,8 +35,8 @@ export async function updateNummPag(num: number) {
  * @param id type number
  * @return
  */
-export async function updateCategory(id: number | any) {
-    return await getRepository(Category).update({ id: id }, { isActive: false });
+export async function updateCategory(id: number | any, criteria: string | any) {
+    return await getRepository(Category).update({ id: id }, { isActive: criteria });
 }
 
 /**
