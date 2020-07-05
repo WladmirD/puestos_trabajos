@@ -17,7 +17,12 @@
       border-bottom: 1.7px solid #d6dad5;
       margin: 10px 0 20px; 
    } 
-   
+   .primary {
+     background-color: rgba(0, 128, 0, 0.8);
+   }
+   .danger {
+     background-color: rgba(255, 0, 0, 0.8);
+   }
    .line span { 
      color: #000;
        background:#fff; 
@@ -25,5 +30,8 @@
    }
    .table-state {
      text-transform: capitalize;
+   }
+   .td-state {
+     width: 50%;
    }
   }

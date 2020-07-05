@@ -9,55 +9,50 @@ export default function Admin() {
     const [numPagDB, setNumPagDB] = useState();
     const [categorias,setCategorias] = useState([]);
     const [category, setCategory] = useState();
-    const pagination = 'http://69.55.55.239:8080/api/pagination';
-    const categoryRQ = 'http://69.55.55.239:8080/api/category';
+    const url = 'http://69.55.55.239:8080/api';
     const config = {
         headers: {
-            "Authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6IkFkbWluaXN0cmFkb3IiLCJpYXQiOjE1OTM5NTUzNjUsImV4cCI6MTU5Mzk1ODk2NX0.0CbLDvzc1j7XTKHqvGNlFBdnoifMl-ItSMgc4xSJw8E',
+            "Authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6IkFkbWluaXN0cmFkb3IiLCJpYXQiOjE1OTM5NjcxODEsImV4cCI6MTU5Mzk3MDc4MX0.eqExBdaJE7cAUVnoazAg-8yzVq0E583F7Hogwt_TPRE',
             'Content-Type': 'application/json'
         }
     }
-    function validateForm() {
-        return numPag.length > 0 || category.length > 0
-    }
     useEffect(() => {
-        async function fetchNumPag() {
-           const { data:{numPagination}} = await  axios.get(pagination, config);
-            setNumPagDB(numPagination);
-        }
-        fetchNumPag();
-    }, [config, pagination]);
-
+        axios.get(`${url}/pagination`, config)
+                .then((response) => setNumPagDB(response.data.numPagination))
+                .catch((err) => alert(err));
+    });
     useEffect(() => {
-        async function fetchCategory() {
-            const { data } = await axios.get(categoryRQ);
-            setCategorias(data);
-        }
-        fetchCategory();
-    },[categoryRQ]);
-    async function handleSubmitNum(event) {
+        axios.get(`${url}/adminCategory`, config)
+            .then((response) => setCategorias(response.data))
+            .catch((err) => alert(err));
+    },[]);
+    function handleSubmitNum(event) {
         event.preventDefault();
-        try {
-            await axios.put(pagination,{numPagination: numPag}, config);
-            alert('Cambiado');
-        } catch(err) {
-            alert(err.message);
-        }
+        const result = { numPagination: numPag}
+        axios.put(`${url}/pagination`,result,config)
+                .then((response) => alert('Ok'))
+                .catch((err) => alert(err));
+        setNumPag(0);
     }
-    async function handleSubmitCat(event) {
+    function handleSubmitCat(event) {
         event.preventDefault();
-        try {
-            await axios.post(categoryRQ,{ category}, config);
-            alert('Creada la categoria');
-        } catch(err) {
-            alert(err.message);
-        }
+        const name = { name: category}
+        axios.post(`${url}/category`, name, config)
+            .then((data) => alert(data.data.message))
+            .catch((err) => alert(err.data));
+        setCategory("");
+    }
+    function updateCategory(event) {
+        const result = { update: !event.isActive}
+        axios.put(`${url}/category/${event.id}`, result,config)
+            .then((response) => alert('Cambiado correctamente'))
+            .catch((err) => alert(err.data));
     }
     return (
         <>
         <div className="Admin">
             <form onSubmit={handleSubmitNum}>
-                <FormGroup bsSize="small">
+                <FormGroup controlId="num" bsSize="small">
                         <ControlLabel>Numero de paginacion:</ControlLabel>
                         <ControlLabel className="num">{numPagDB}</ControlLabel>
                     <FormControl
@@ -65,7 +60,7 @@ export default function Admin() {
                         value={numPag}
                         onChange={e => setNumPag(e.target.value)}
                     />
-                    <Button block bsSize="small" type="submit" disabled={!validateForm()}>
+                    <Button block bsSize="small" type="submit">
                         Enviar
                     </Button>
                 </FormGroup>
@@ -84,9 +79,9 @@ export default function Admin() {
                             categorias.map((categoria) => {
                                 return (
                                     <>
-                                    <tr>
+                                    <tr className="td-state">
                                         <td key={categoria.name}>{categoria.name}</td>
-                                        <td key={categoria.isActive.toString()} className="table-state">{categoria.isActive.toString()}</td>
+                                        <td key={categoria.isActive.toString()}><Button bsSize="sm"  className={categoria.isActive ? 'table-state primary' : 'table-state danger'} onClick={() => updateCategory(categoria)}>{categoria.isActive.toString()}</Button></td>
                                     </tr>
                                     </>
                                 )
@@ -96,14 +91,14 @@ export default function Admin() {
                 </table>
             </div>
             <form onSubmit={handleSubmitCat}>
-                <FormGroup bsSize="small">
+                <FormGroup controlId="category" bsSize="small">
                     <ControlLabel>Categoria:</ControlLabel>
                     <FormControl
                         type="text"
                         value={category}
                         onChange={e => setCategory(e.target.value)}
                     />
-                    <Button block bsSize="small" type="submit" disabled={!validateForm()}>
+                    <Button block bsSize="small" type="submit">
                         Enviar
                     </Button>
                 </FormGroup>
