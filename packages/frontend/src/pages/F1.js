@@ -3,16 +3,23 @@ import axios from 'axios';
 import Layout from '../components/layout';
 
 
-const urlJobsGet = "http://69.55.55.239:8080/api/jobs?page=1"
+const urlJobsGet = "http://69.55.55.239:8080/api/jobs?category=IT";
+const urlCategoryGet = "http://69.55.55.239:8080/api/category";
 export default function F1({}) {
 
-    const [apiNow, setApiNow] = useState([]);
+    const [jobsGet, setJobsGet] = useState([]);
+    const [categoryGet, setCategoryGet] = useState([]);
+
 
     useEffect( ()=>  {
         async function fetchData(){
-        var api = await axios.get( urlJobsGet);
-        setApiNow(api.data.jobs);
-        console.log(api);
+        var apiJobs = await axios.get( urlJobsGet);
+        setJobsGet(apiJobs.data);
+        console.log(apiJobs);
+
+        var apiCategory = await axios.get( urlCategoryGet);
+        setCategoryGet(apiCategory);
+        console.log(apiCategory);
         
         }
 
@@ -23,7 +30,8 @@ export default function F1({}) {
     },[]);
 
 //Change this to change table size per category
-var limitTable = 0;
+var limit_table = 5;
+var counter_rows =0;
 
 return (
     <>
@@ -46,9 +54,9 @@ return (
                     </thead>
                     <tbody>
                         {
-                        apiNow.map((job) => {
-                            if (job.category == "Salud" && limitTable < 3 ){
-                                limitTable++;
+                        jobsGet.map((job) => {
+                            if (counter_rows < limit_table ){
+                                counter_rows++;
                             return (
                                 <tr>
                                     <td>{job.posicion}</td>
