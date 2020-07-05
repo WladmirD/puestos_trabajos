@@ -12,7 +12,7 @@ export default function SignUp() {
     const [url,setUrl] = useState("");
     const [role, setRole] = useState("");
     function validateForm() {
-        return email.length > 0 && password.length > 0;
+        return email.length > 0 && password.length > 0 && role !== '';
       }
     
       async function handleSubmit(event) {
@@ -23,7 +23,7 @@ export default function SignUp() {
           formData.email = email;
           formData.password = password;
           formData.url = url;
-          formData.role = role;
+          formData.role =role;
           const responseLog = await axios.post('http://69.55.55.239:8080/api/register',formData);
           alert(responseLog.data.message);
           setName("");

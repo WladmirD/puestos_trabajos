@@ -18,7 +18,7 @@ const style = {
     },
     setWidth : {
         width : "60%",
-        height : "99vh"
+        height : "74vh"
     },
     width20 : {
         width : "30%",
@@ -31,6 +31,9 @@ const style = {
     top : {
         marginTop : "10px",
         marginLeft: "20px"
+    },
+    form: {
+        padding: "20px",
     }
 }
 
@@ -126,7 +129,7 @@ export default function CreateJob() {
     }, [])
   return (
     <Layout>
-    <div className="CreateJob">
+    <div className="CreateJob" style={style.form}>
       <div className="CreateJobForm">
         <h1 style={style.title}>Post a Job</h1>
         <div style={style.setWidth}>

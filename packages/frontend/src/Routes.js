@@ -33,7 +33,8 @@ export default function Routes() {
       <Route exact path="/jobdetails/:id">
         <Jobdetails />
       </Route>
-      <Route exact path="/createJob" component={props => <CreateJob {...props} />} />
+      <Route exact path="/admin" component={Admin}/>
+      <Route exact path="/createJob" component={CreateJob} />
 
 
 
