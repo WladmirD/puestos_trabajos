@@ -1,5 +1,29 @@
-.card {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
+@media all and (min-width: 480px) {
+    .Admin {
+      padding: 60px 0;
+    }
+    .num {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+    .Admin form,
+    .table-categories {
+      margin: 0 auto;
+      max-width: 320px;
+    }
+    .line {
+      width: 100%; 
+      text-align: center; 
+      border-bottom: 1.7px solid #d6dad5;
+      margin: 10px 0 20px; 
+   } 
+   
+   .line span { 
+     color: #000;
+       background:#fff; 
+       padding:0 10px; 
+   }
+   .table-state {
+     text-transform: capitalize;
+   }
+  }
