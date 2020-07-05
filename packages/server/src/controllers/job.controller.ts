@@ -11,13 +11,13 @@ import {
     deleteJob,
     searchKeyword,
     getJobCategory,
-    updateJobById
+    updateJobById,
 } from '../repositories/job';
 import { findNumPag, findId } from '../repositories/general';
 import { Category } from '../entity/category.entity';
 import errorException from '../utils/errors';
 import { City } from '../entity/city.entity';
-import {TimeWork } from '../entity/time_work.entity';
+import { TimeWork } from '../entity/time_work.entity';
 
 export async function createJobCT(req: Request, res: Response, next: NextFunction) {
     try {
@@ -35,7 +35,9 @@ export async function createJobCT(req: Request, res: Response, next: NextFunctio
         job.cityId = await findId(city, City);
         job.typeId = await findId(type, TimeWork);
         const result = await cloudinary.v2.uploader.upload(req.file.path);
-        job.url_logo = req.file ? result.url : 'https://res.cloudinary.com/dkgcofgap/image/upload/v1593446199/cat_ycqk39.jpg';
+        job.url_logo = req.file
+            ? result.url
+            : 'https://res.cloudinary.com/dkgcofgap/image/upload/v1593446199/cat_ycqk39.jpg';
         await fs.unlink(req.file.path);
         await createJob(job);
         res.status(201).json({ message: 'Created.' });
@@ -91,7 +93,7 @@ export async function deleteJobById(req: Request, res: Response, next: NextFunct
     }
 }
 
-export async function updateJob(req: Request, res:Response, next: NextFunction) {
+export async function updateJob(req: Request, res: Response, next: NextFunction) {
     try {
         const { id } = req.params;
         const { posicion, category, address, city, type, description, url_logo, owner } = req.body;
@@ -105,14 +107,14 @@ export async function updateJob(req: Request, res:Response, next: NextFunction) 
         job.cityId = await findId(city, City);
         job.typeId = await findId(type, TimeWork);
         job.url_logo = url_logo;
-        if ( req.file) {
+        if (req.file) {
             const result = await cloudinary.v2.uploader.upload(req.file.path);
-            await fs.unlink(req.file.path)
+            await fs.unlink(req.file.path);
             job.url_logo = result.url;
         }
         await updateJobById(job, id);
         res.status(201).json({ message: 'Updated.' });
-    } catch(err) {
+    } catch (err) {
         next(err);
     }
 }

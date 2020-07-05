@@ -110,7 +110,7 @@ export async function deleteJob(id: number | any) {
 }
 
 export async function updateJobById(job: Job, id: number | any) {
-    return await getRepository(Job).update({ id: id}, job);
+    return await getRepository(Job).update({ id: id }, job);
 }
 
 function manipulateData(datos: Array<any>) {
