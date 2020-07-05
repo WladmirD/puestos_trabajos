@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Jobdetails from "./pages/jobdetails"
+import CreateJob from "./pages/CreateJob"
 import F1 from "./pages/F1";
 import Admin from './pages/Admin';
 
@@ -32,9 +33,8 @@ export default function Routes() {
       <Route exact path="/jobdetails/:id">
         <Jobdetails />
       </Route>
-    <Route exact path="/admin">
-    <Admin />
-    </Route>
+      <Route exact path="/createJob" component={props => <CreateJob {...props} />} />
+
 
 
       {/* Finally, catch all unmatched routes */}

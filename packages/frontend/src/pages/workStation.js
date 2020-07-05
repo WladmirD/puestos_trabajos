@@ -3,11 +3,12 @@ import Moment from 'react-moment';
 
 import "./styles/workStation.css";
 import Layout from '../components/layout';
+import { withRouter } from "react-router-dom";
 
 //URL API
 const urlWorkStacionGet = "http://69.55.55.239:8080/api/jobs?search=";
 
-export default function WorkStation() {
+function WorkStation(props) {
 
     const [search, setSearch] = useState("");
     const [workStation, setWorkStation] = useState([]);
@@ -29,7 +30,8 @@ export default function WorkStation() {
     }
 
     function postWorkStacion() {
-        alert(`POST a Join`);
+        //alert(`POST a Join`);
+        props.history.push('/createJob')
     }
 
     function ListJobs({ jobs }) {
@@ -122,3 +124,4 @@ export default function WorkStation() {
         </Layout>
     );
 }
+export default withRouter(WorkStation);
