@@ -43,6 +43,10 @@ export async function updateCategory(id: number | any) {
  * @param
  * @return [] un array de la criteria entrada
  */
-export async function getAll(criteria: any) {
-    return await getRepository(criteria).find();
+export async function getAll(repository: any, criteria: any) {
+    return await getRepository(repository).find(criteria);
+}
+
+export async function createCategory(criteria: any) {
+    return await getRepository(Category).save({ name: criteria });
 }

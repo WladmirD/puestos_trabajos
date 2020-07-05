@@ -7,6 +7,8 @@ import {
     updateCategoryById,
     getAllCategory,
     getAllCities,
+    getAdminCategory,
+    createCategory,
 } from '../controllers/category.controller';
 import { isAdmin } from '../middlewares/isWho';
 import jobRoutes from './job.routes';
@@ -40,11 +42,20 @@ class UserRoutes {
             isAdmin,
             updateCategoryById,
         );
-        this.router.get(
-            '/cities',
-            getAllCities,
-        );
+        this.router.get('/cities', getAllCities);
         this.router.get('/category', getAllCategory);
+        this.router.get(
+            '/adminCategory',
+            passport.authenticate('jwt', { session: false }),
+            isAdmin,
+            getAdminCategory,
+        );
+        this.router.post(
+            'category',
+            passport.authenticate('jwt', { session: false }),
+            isAdmin,
+            createCategory,
+        );
         this.router.use('/', jobRoutes);
     }
 }
