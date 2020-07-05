@@ -2,24 +2,37 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import Layout from '../components/layout';
 
-
-const urlJobsGet = "http://69.55.55.239:8080/api/jobs?category=IT";
+//Incomplete, needs append of a specficic category
+const urlJobsGet = "http://69.55.55.239:8080/api/jobs?category=";
 const urlCategoryGet = "http://69.55.55.239:8080/api/category";
 export default function F1({}) {
 
     const [jobsGet, setJobsGet] = useState([]);
     const [categoryGet, setCategoryGet] = useState([]);
 
+    var tableInfos = [];
+    
+
 
     useEffect( ()=>  {
         async function fetchData(){
-        var apiJobs = await axios.get( urlJobsGet);
-        setJobsGet(apiJobs.data);
-        console.log(apiJobs);
 
+        //Get all categories
         var apiCategory = await axios.get( urlCategoryGet);
-        setCategoryGet(apiCategory);
-        console.log(apiCategory);
+        setCategoryGet(apiCategory.data);
+        console.log(apiCategory.data);
+        
+
+        //For each category, get all entries...needs limit, coming soon
+        apiCategory.data.map(async (category) => {
+
+            var apiJobs = await axios.get( urlJobsGet + category.name);
+            setJobsGet(jobsGet.push(apiJobs.data));
+            
+            console.log(jobsGet[0][0].posicion);
+
+        })
+
         
         }
 
@@ -57,6 +70,7 @@ return (
                         jobsGet.map((job) => {
                             if (counter_rows < limit_table ){
                                 counter_rows++;
+                                
                             return (
                                 <tr>
                                     <td>{job.posicion}</td>
@@ -71,6 +85,7 @@ return (
                         })}
                     </tbody>
                 </table>
+                
             </div>
     </div>
         </Layout>
