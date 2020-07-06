@@ -20,16 +20,21 @@ export default function F1({}) {
         //Get all categories
         var apiCategory = await axios.get( urlCategoryGet);
         setCategoryGet(apiCategory.data);
+        console.log("Category Dentro")
         console.log(apiCategory.data);
+        
         
 
         //For each category, get all entries...needs limit, coming soon
         apiCategory.data.map(async (category) => {
 
+
             var apiJobs = await axios.get( urlJobsGet + category.name);
-            setJobsGet(jobsGet.push(apiJobs.data));
+            setJobsGet(jobsGet=> jobsGet.concat(apiJobs.data));
             
-            console.log(jobsGet[0][0].posicion);
+            console.log("Jobsget Dentro");
+            console.log(jobsGet);
+            
 
         })
 
@@ -43,8 +48,17 @@ export default function F1({}) {
     },[]);
 
 //Change this to change table size per category
-var limit_table = 5;
+var limit_table = 20;
 var counter_rows =0;
+var categoryOld ="";
+var categoryNew = "";
+
+
+console.log("TableInfos fuera");
+console.log(tableInfos);
+console.log("Jobsget fuera");   
+
+
 
 return (
     <>
@@ -63,22 +77,28 @@ return (
                             <th scope="col">Category</th>
                             <th scope="col">City</th>
                             <th scope="col">Owner</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
                         {
                         jobsGet.map((job) => {
-                            if (counter_rows < limit_table ){
+                            console.log("Jobsget Dentro del map ese");
+                            console.log(jobsGet);
+                            if (counter_rows < limit_table  ){
                                 counter_rows++;
+                                
                                 
                             return (
                                 <tr>
+
                                     <td>{job.posicion}</td>
                                     <td>{job.address}</td>
                                     <td>{job.created_time}</td>
                                     <td>{job.category}</td>
                                     <td>{job.city}</td>
                                     <td>{job.owner}</td>
+
                                 </tr>
                             )
                             }
