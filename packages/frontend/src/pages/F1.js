@@ -53,8 +53,10 @@ export default function F1({}) {
 console.log("JobsGet Afuera")
 
 function nextPage(){
+    render()
     page_number++;
     console.log(page_number);
+    
     
     
 }
