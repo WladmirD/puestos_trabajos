@@ -12,6 +12,7 @@ export default function F1({}) {
 
     const [jobsGet, setJobsGet] = useState([]);
     const [categoryGet, setCategoryGet] = useState([]);
+    const [activame, setActivame] = useState([]);
 
     var page_number=1;
 
@@ -39,10 +40,13 @@ export default function F1({}) {
         }
 
         fetchData();
+        
 
         
 
     },[]);
+
+    
 
 
  
@@ -51,6 +55,7 @@ console.log("JobsGet Afuera")
 function nextPage(){
     page_number++;
     console.log(page_number);
+    
     
 }
 
