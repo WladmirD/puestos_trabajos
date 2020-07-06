@@ -42,7 +42,6 @@ export default function CreateJob() {
         categories : "",
         category : "",
         type : "",
-        companyName : "",
         Logo : "",
         url : "",
         Position : "",
@@ -68,7 +67,7 @@ export default function CreateJob() {
             // return responsejob
     }
     const submitHandler = async () => {
-        const {category , type , companyName , Logo , Position , Location , Description , city} = state
+        const {category , type , Logo , Position , Location , Description , city} = state
         const configSet = {
             headers: {
                 'Authorization': "Bearer " + localStorage.getItem('jwt'),
@@ -76,11 +75,10 @@ export default function CreateJob() {
             }
         }
         console.log(configSet , "sss")
-        if(category && type && companyName && Logo && Position && Location && Description && city){
+        if(category && type && Logo && Position && Location && Description && city){
             const newState = {
                 category : "",
                 type : "",
-                companyName : "",
                 Logo : "",
                 url : "",
                 Position : "",
@@ -103,7 +101,7 @@ export default function CreateJob() {
             alert("Job " + (response.data.message || 'created'))
             }catch(err){
                 alert(err.message)
-            }         
+            }
         }else {
             alert("Please Enter All Fields");
         }
@@ -200,25 +198,6 @@ export default function CreateJob() {
                             Full-Time
                         </Radio>
                     </FormGroup>
-                </div>
-            </div>
-            <div style={style.spaceBetween}>
-                <h4 style={style.width20}>
-                    Company
-                </h4>
-                <div style={style.width60}>
-                <FormGroup
-                    controlId="companyName"
-                >
-                <FormControl
-                    type="text"
-                    value={state.companyName }
-                    placeholder="Enter Company Name"
-                    onChange={(evt) => {
-                        setFormState({...state ,companyName : evt.target.value})
-                    }}
-                    />
-                </FormGroup>
                 </div>
             </div>
             <div style={style.spaceBetween}>
