@@ -3,15 +3,14 @@ import axios from 'axios';
 import Layout from '../components/layout';
 
 //Incomplete, needs append of a specficic category
-const urlJobsGet = "http://69.55.55.239:8080/api/jobs?category=";
+const urlJobsGet = "http://69.55.55.239:8080/api/jobs?page=";
 const urlCategoryGet = "http://69.55.55.239:8080/api/category";
 export default function F1({}) {
 
     const [jobsGet, setJobsGet] = useState([]);
     const [categoryGet, setCategoryGet] = useState([]);
 
-    var tableInfos = [];
-    
+    var page_number=1;
 
 
     useEffect( ()=>  {
@@ -22,23 +21,18 @@ export default function F1({}) {
         setCategoryGet(apiCategory.data);
         console.log("Category Dentro")
         console.log(apiCategory.data);
-        
-        
 
-        //For each category, get all entries...needs limit, coming soon
-        apiCategory.data.map(async (category) => {
-
-
-            var apiJobs = await axios.get( urlJobsGet + category.name);
-            setJobsGet(jobsGet=> jobsGet.concat(apiJobs.data));
-            
-            console.log("Jobsget Dentro");
-            console.log(jobsGet);
-            
-
-        })
+        //Get recent jobs
+        var apiJobsGet = await axios.get( urlJobsGet + page_number);
+        setJobsGet(apiJobsGet.data.jobs);
+        console.log("JobsGet Dentro")
+        console.log(apiJobsGet.data.jobs);
 
         
+        
+
+        
+
         }
 
         fetchData();
@@ -50,14 +44,8 @@ export default function F1({}) {
 //Change this to change table size per category
 var limit_table = 20;
 var counter_rows =0;
-var categoryOld ="";
-var categoryNew = "";
-
-
-console.log("TableInfos fuera");
-console.log(tableInfos);
-console.log("Jobsget fuera");   
-
+ 
+console.log("JobsGet Afuera")
 
 
 return (
@@ -65,7 +53,7 @@ return (
         <Layout>
         <div>
         <div>
-            <p>IT</p>
+            <p>{jobsGet.city}</p>
         </div>
         <div id="table1">
                 <table className="table table-bordered">
@@ -81,11 +69,11 @@ return (
                         </tr>
                     </thead>
                     <tbody>
-                        {
+                        { 
                         jobsGet.map((job) => {
                             console.log("Jobsget Dentro del map ese");
-                            console.log(jobsGet);
-                            if (counter_rows < limit_table  ){
+                            console.log(job.posicion);
+                            if (    counter_rows < limit_table  ){
                                 counter_rows++;
                                 
                                 
