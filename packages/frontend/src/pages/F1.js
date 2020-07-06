@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import Layout from '../components/layout';
+import { render } from "@testing-library/react";
 
 //Incomplete, needs append of a specficic category
 const urlJobsGet = "http://69.55.55.239:8080/api/jobs?page=";
 const urlCategoryGet = "http://69.55.55.239:8080/api/category";
+
+
 export default function F1({}) {
 
     const [jobsGet, setJobsGet] = useState([]);
@@ -41,19 +44,39 @@ export default function F1({}) {
 
     },[]);
 
-//Change this to change table size per category
-var limit_table = 20;
-var counter_rows =0;
+
  
 console.log("JobsGet Afuera")
+
+function nextPage(){
+    page_number++;
+    console.log(page_number);
+    
+}
 
 
 return (
     <>
         <Layout>
+
+
+
         <div>
+            <div>
+            
+            {
+            //For each category, create table with all jobs of that category that match.
+            categoryGet.map((categ) =>{
+                //Change this to change table size per category
+                var limit_table = 5;
+                var counter_rows =0;                
+                return (
+
+                <div>
+
+                    
         <div>
-            <p>{jobsGet.city}</p>
+            <p id={categ.name} >{jobsGet.city}</p>
         </div>
         <div id="table1">
                 <table className="table table-bordered">
@@ -73,8 +96,10 @@ return (
                         jobsGet.map((job) => {
                             console.log("Jobsget Dentro del map ese");
                             console.log(job.posicion);
-                            if (    counter_rows < limit_table  ){
+                            if (    counter_rows < limit_table  && categ.name ==job.category  ){
                                 counter_rows++;
+
+                                document.getElementById(categ.name).innerHTML=job.category; 
                                 
                                 
                             return (
@@ -89,12 +114,38 @@ return (
 
                                 </tr>
                             )
+                            
                             }
-                        })}
+                        })
+                        
+                        }
+                        
                     </tbody>
                 </table>
                 
             </div>
+
+                </div>            
+
+                )
+
+
+            })
+            
+            
+            
+            }
+            
+            
+            <div>
+                <button className="btn secondary" onClick={nextPage} >
+                    {page_number}
+                </button>
+            </div>
+
+
+            </div>
+            
     </div>
         </Layout>
     </>
