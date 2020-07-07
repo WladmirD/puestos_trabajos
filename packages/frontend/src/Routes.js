@@ -7,6 +7,7 @@ import Jobdetails from "./pages/jobdetails"
 import CreateJob from "./pages/CreateJob"
 import F1 from "./pages/F1";
 import Admin from './pages/Admin';
+import EditPost from './pages/edit-post-page';
 
 import WorkStation from "./pages/workStation.js";
 import SignUp from './pages/SignUp';
@@ -30,6 +31,7 @@ export default function Routes() {
       <Route exact path="/workStation">
         <WorkStation />
       </Route>
+      <Route exact path="/jobs/:id/edit" component={EditPost}/>
       <Route exact path="/jobdetails/:id">
         <Jobdetails />
       </Route>

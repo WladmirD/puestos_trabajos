@@ -1,7 +1,7 @@
 
 
 export function getJwt() {
-    window.localStorage.getItem('jwt');
+    return window.localStorage.getItem('jwt');
 };
 
 export function setJwt(jwt) {
@@ -14,9 +14,10 @@ export function removeJwt() {
 
 export function config(Content) {
     const content = Content ? Content : 'application/json';
+    const jwt = getJwt();
     const config = {
         headers: {
-        'Authorization': `Bearer ${getJwt()}`,
+        'Authorization': `Bearer ${jwt}`,
         'Content-Type': content
     }}
     return config;

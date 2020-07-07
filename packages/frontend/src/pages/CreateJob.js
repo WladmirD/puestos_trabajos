@@ -3,7 +3,7 @@ import { Button} from "react-bootstrap"
 import {ButtonToolbar , SplitButton , MenuItem , FormControl,FormGroup , Radio} from 'react-bootstrap'
 import Layout from '../components/layout';
 import axios from "axios";
-import {config} from "../services/headers"
+import {config, setJwt} from "../services/headers"
 const style = {
     title : {
         "fontFamily" : "Open Sans, sans-serif",
@@ -38,11 +38,12 @@ const style = {
 }
 
 export default function CreateJob() {
+    const configSetForm = config('multipart/form-data')
+    const configSet = config();
     const [state , setFormState] = React.useState({
         categories : "",
         category : "",
         type : "",
-        companyName : "",
         Logo : "",
         url : "",
         Position : "",
@@ -55,12 +56,6 @@ export default function CreateJob() {
         return await axios.get(`http://69.55.55.239:8080/api/category`)
     }
     const getCities = async () => {
-        const configSet = {
-            headers: {
-                'Authorization': "Bearer " +localStorage.getItem('jwt'),
-                'Content-Type': "application/json"
-            }
-        }
         console.log(configSet , "sssssssssss")
             return await axios.get(`http://69.55.55.239:8080/api/cities` , configSet)
             // console.log(responsejob , "cities");
@@ -68,19 +63,12 @@ export default function CreateJob() {
             // return responsejob
     }
     const submitHandler = async () => {
-        const {category , type , companyName , Logo , Position , Location , Description , city} = state
-        const configSet = {
-            headers: {
-                'Authorization': "Bearer " + localStorage.getItem('jwt'),
-                'Content-Type': 'multipart/form-data'
-            }
-        }
+        const {category , type , Logo , Position , Location , Description , city} = state
         console.log(configSet , "sss")
-        if(category && type && companyName && Logo && Position && Location && Description && city){
+        if(category && type && Logo && Position && Location && Description && city){
             const newState = {
                 category : "",
                 type : "",
-                companyName : "",
                 Logo : "",
                 url : "",
                 Position : "",
@@ -97,13 +85,13 @@ export default function CreateJob() {
             formData.append("category" , category)
             formData.append("image" , Logo)
             try{
-            const response = await axios.post("http://69.55.55.239:8080/api/create" , formData ,  configSet)
+            const response = await axios.post("http://69.55.55.239:8080/api/create" , formData ,  configSetForm)
             console.log("----- " , state , response);
             setFormState({...state , ...newState})
             alert("Job " + (response.data.message || 'created'))
             }catch(err){
                 alert(err.message)
-            }         
+            }
         }else {
             alert("Please Enter All Fields");
         }
@@ -143,7 +131,7 @@ export default function CreateJob() {
                         }}>
                     <SplitButton
                         bsStyle="default"
-                        title={state.category || "Please select Cateogy"}
+                        title={state.category || "Please select Category"}
                         id={`split-button-basic-1}`}
                     >
                         {state.categories && state.categories.map(cit => {
@@ -200,25 +188,6 @@ export default function CreateJob() {
                             Full-Time
                         </Radio>
                     </FormGroup>
-                </div>
-            </div>
-            <div style={style.spaceBetween}>
-                <h4 style={style.width20}>
-                    Company
-                </h4>
-                <div style={style.width60}>
-                <FormGroup
-                    controlId="companyName"
-                >
-                <FormControl
-                    type="text"
-                    value={state.companyName }
-                    placeholder="Enter Company Name"
-                    onChange={(evt) => {
-                        setFormState({...state ,companyName : evt.target.value})
-                    }}
-                    />
-                </FormGroup>
                 </div>
             </div>
             <div style={style.spaceBetween}>
