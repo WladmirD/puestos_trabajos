@@ -4,7 +4,14 @@
   "main": "index.js",
   "private": true,
   "license": "MIT",
+  "scripts": {
+    "start": "yarn workspace @puestos_trabajos/server start:prod"
+  },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "engines": {
+    "yarn": "1.22.0",
+    "node": "10.16.3"
+  }
 }

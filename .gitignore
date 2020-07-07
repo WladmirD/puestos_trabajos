@@ -1,12 +1,18 @@
 #Node modules
 node_modules/
 
+#upload images
+images/
+
 yarn-error.log
 yarn.lock
 .eslintcache
 
 # Environment variables
 .env
+
+# Credentials of database
+ormconfig.json
 
 # Folder of javascript
 dist/
