@@ -12,7 +12,7 @@ export default function F1({}) {
 
     const [jobsGet, setJobsGet] = useState([]);
     const [categoryGet, setCategoryGet] = useState([]);
-    const [activame, setActivame] = useState([]);
+    const [activame, setActivame] = useState(1);
 
     var page_number=1;
 
@@ -27,7 +27,7 @@ export default function F1({}) {
         console.log(apiCategory.data);
 
         //Get recent jobs
-        var apiJobsGet = await axios.get( urlJobsGet + page_number);
+        var apiJobsGet = await axios.get( urlJobsGet + activame);
         setJobsGet(apiJobsGet.data.jobs);
         console.log("JobsGet Dentro")
         console.log(apiJobsGet.data.jobs);
@@ -44,7 +44,7 @@ export default function F1({}) {
 
         
 
-    },[]);
+    },[activame]);
 
     
 
@@ -54,7 +54,7 @@ console.log("JobsGet Afuera")
 
 function nextPage(){
     render()
-    page_number++;
+    setActivame(activame + 1);
     console.log(page_number);
     
     
@@ -146,7 +146,7 @@ return (
             
             <div>
                 <button className="btn secondary" onClick={nextPage} >
-                    {page_number}
+                    {activame}
                 </button>
             </div>
 
