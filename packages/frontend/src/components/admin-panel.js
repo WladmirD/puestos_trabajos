@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { config } from '../services/headers';
 import './styles/admin-panel.css';
 import axios from 'axios';
 
@@ -10,26 +11,24 @@ export default function Admin() {
     const [categorias,setCategorias] = useState([]);
     const [category, setCategory] = useState();
     const url = 'http://69.55.55.239:8080/api';
-    const config = {
-        headers: {
-            "Authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6IkFkbWluaXN0cmFkb3IiLCJpYXQiOjE1OTM5NjcxODEsImV4cCI6MTU5Mzk3MDc4MX0.eqExBdaJE7cAUVnoazAg-8yzVq0E583F7Hogwt_TPRE',
-            'Content-Type': 'application/json'
-        }
-    }
+    const configSet = config();
     useEffect(() => {
-        axios.get(`${url}/pagination`, config)
+        axios.get(`${url}/pagination`, configSet)
                 .then((response) => setNumPagDB(response.data.numPagination))
                 .catch((err) => alert(err));
     });
     useEffect(() => {
-        axios.get(`${url}/adminCategory`, config)
-            .then((response) => setCategorias(response.data))
+        axios.get(`${url}/adminCategory`, configSet)
+            .then((response) => {
+                setCategorias(response.data);
+            })
             .catch((err) => alert(err));
-    },[]);
+        
+    },[category, configSet]);
     function handleSubmitNum(event) {
         event.preventDefault();
         const result = { numPagination: numPag}
-        axios.put(`${url}/pagination`,result,config)
+        axios.put(`${url}/pagination`,result,configSet)
                 .then((response) => alert('Ok'))
                 .catch((err) => alert(err));
         setNumPag(0);
@@ -37,15 +36,17 @@ export default function Admin() {
     function handleSubmitCat(event) {
         event.preventDefault();
         const name = { name: category}
-        axios.post(`${url}/category`, name, config)
+        axios.post(`${url}/category`, name, configSet)
             .then((data) => alert(data.data.message))
             .catch((err) => alert(err.data));
         setCategory("");
     }
     function updateCategory(event) {
         const result = { update: !event.isActive}
-        axios.put(`${url}/category/${event.id}`, result,config)
-            .then((response) => alert('Cambiado correctamente'))
+        axios.put(`${url}/category/${event.id}`, result,configSet)
+            .then((response) => {
+                alert('Cambiado correctamente')
+            })
             .catch((err) => alert(err.data));
     }
     return (

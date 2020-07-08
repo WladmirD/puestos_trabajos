@@ -3,7 +3,7 @@ import { Button} from "react-bootstrap"
 import {ButtonToolbar , SplitButton , MenuItem , FormControl,FormGroup , Radio} from 'react-bootstrap'
 import Layout from '../components/layout';
 import axios from "axios";
-import {config, setJwt} from "../services/headers"
+import {config} from "../services/headers"
 const style = {
     title : {
         "fontFamily" : "Open Sans, sans-serif",
@@ -56,15 +56,12 @@ export default function CreateJob() {
         return await axios.get(`http://69.55.55.239:8080/api/category`)
     }
     const getCities = async () => {
-        console.log(configSet , "sssssssssss")
             return await axios.get(`http://69.55.55.239:8080/api/cities` , configSet)
-            // console.log(responsejob , "cities");
             // setFormState({...state , cities : responsejob.data})
             // return responsejob
     }
     const submitHandler = async () => {
         const {category , type , Logo , Position , Location , Description , city} = state
-        console.log(configSet , "sss")
         if(category && type && Logo && Position && Location && Description && city){
             const newState = {
                 category : "",
@@ -86,7 +83,6 @@ export default function CreateJob() {
             formData.append("image" , Logo)
             try{
             const response = await axios.post("http://69.55.55.239:8080/api/create" , formData ,  configSetForm)
-            console.log("----- " , state , response);
             setFormState({...state , ...newState})
             alert("Job " + (response.data.message || 'created'))
             }catch(err){
@@ -102,8 +98,6 @@ export default function CreateJob() {
                 // setFormState({...state , categories : res.data})
                 getCities()
                     .then(response => {
-                        console.log("categories : res.data" , res)
-                        console.log("response " , response.data)
                         setFormState({...state , cities : response.data , categories : res.data})
                     })
                     .catch(err => {
@@ -114,7 +108,7 @@ export default function CreateJob() {
             .catch(err => {
                 alert(err.message || "err")
             })
-    }, [])
+    })
   return (
     <Layout>
     <div className="CreateJob" style={style.form}>

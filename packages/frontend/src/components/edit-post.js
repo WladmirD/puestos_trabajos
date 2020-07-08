@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useState} from 'react';
-import { useParams} from 'react-router-dom';
+import { useParams, useHistory} from 'react-router-dom';
 import { Button, ButtonToolbar, SplitButton, MenuItem, FormControl, FormGroup, Radio} from 'react-bootstrap';
 import axios from 'axios';
 import { config } from '../services/headers';
@@ -39,6 +39,7 @@ const style = {
 }
 const typeJob = ["Freelance","Part-Time","Full-Time"]
 export default function editPost() {
+    const history = useHistory();
     const { id } = useParams();
     const configHeader = config('multipart/form-data');
     const [categories,setCategories] = useState([]);
@@ -67,7 +68,6 @@ export default function editPost() {
     }
     const submitHandler = async () => {
         const {category , type , url_logo , posicion , address , description , city, Logo, owner} = state;
-        console.log(state);
         if(category && type && url_logo && posicion && address && description && city){
             const newState = {
                 category : "",
@@ -96,6 +96,7 @@ export default function editPost() {
             const response = await axios.put(`http://69.55.55.239:8080/api/jobs/${id}` , formData, configHeader);
             setFormState({...state , ...newState})
             alert("Job " + (response.data.message || 'Edited'))
+            history.push('/');
             }catch(err){
                 alert(err.message);
             }
@@ -121,7 +122,7 @@ export default function editPost() {
                 setCities(res.data);
             })
             .catch(err => alert(err.message || 'Problem with cities.'));
-    },[]);
+    });
     return (
         <>
         <div style={style.form}>

@@ -1,18 +1,50 @@
 import React from 'react';
 import { LinkContainer } from "react-router-bootstrap";
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Nav, Navbar, NavItem } from "react-bootstrap";
 import { useAppContext } from "../libs/contextLib";
 import { removeJwt } from '../services/headers';
+import { admin, poster, user as userConst} from '../libs/constant';
 
 
 const Header = () => {
+  const history = useHistory();
   const context = useAppContext();
     function handleLogout() {
         context.userHasAuthenticated(false);
         context.setUser({});
         removeJwt();
+        history.replace('/');
+    }
+    function user(user) {
+      if(user === poster) {
+        return (
+          <>
+            <LinkContainer to='/createJob'>
+              <NavItem>Create Job</NavItem>
+            </LinkContainer>
+            <NavItem onClick={handleLogout}>Logout</NavItem>
+          </>
+        )
+      }
+      else if(user === admin) {
+        return (
+          <>
+            <LinkContainer to='/admin'>
+              <NavItem>Admin</NavItem>
+            </LinkContainer>
+            <NavItem onClick={handleLogout}>Logout</NavItem>
+          </>
+        )
+      }
+      else if (user === userConst){
+        return (
+          <>
+          <NavItem onClick={handleLogout}>Logout</NavItem>
+          </>
+        )
+      }
     }
     return (
         <>
@@ -25,33 +57,26 @@ const Header = () => {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
-          {context.isAuthenticated
-  ? <NavItem onClick={handleLogout}>Logout</NavItem>
-  : <>
-      <LinkContainer to="/signup">
-        <NavItem>Signup</NavItem>
-      </LinkContainer>
-      <LinkContainer to="/login">
-        <NavItem>Login</NavItem>
-      </LinkContainer>
-      <LinkContainer to='/admin'>
-        <NavItem>Admin</NavItem>
-      </LinkContainer>
-      <LinkContainer to="/jobdetails">
-        <NavItem>Job Details</NavItem>
-      </LinkContainer>
-      <LinkContainer to="/F1">
-        <NavItem>F1</NavItem>
-      </LinkContainer>
-      <LinkContainer to="/jobs/1/edit">
-        <NavItem>Edit Post</NavItem>
-      </LinkContainer>
-    </>
-
-}
-              <LinkContainer to="/workStation">
-              <NavItem>Buscar Trabajos</NavItem>
+          {
+            !context.isAuthenticated ?
+            <>
+            <LinkContainer to="/signup">
+              <NavItem>Signup</NavItem>
             </LinkContainer>
+            <LinkContainer to="/login">
+              <NavItem>Login</NavItem>
+            </LinkContainer>
+            </>
+            :
+            <>
+            </>
+          }
+          <LinkContainer to="/workStation">
+              <NavItem>Buscar Trabajos</NavItem>
+          </LinkContainer>
+          {
+          context.isAuthenticated ? user(context.user.type) : <></>
+          }
           </Nav>
 
         </Navbar.Collapse>
@@ -59,5 +84,6 @@ const Header = () => {
         </>
     )
 }
+
 
 export default Header;

@@ -1,0 +1,10 @@
+@media all and (min-width: 480px) {
+    .scroll-bar {
+        /* padding: 60px 0; */
+        height: 85%;
+    }
+    /* .scroll-bar div {
+      margin: 0 auto;
+      max-width: 320px;
+    } */
+}

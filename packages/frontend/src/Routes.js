@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
+import Category from './pages/category-table';
 import Jobdetails from "./pages/jobdetails"
 import CreateJob from "./pages/CreateJob"
 import F1 from "./pages/F1";
@@ -16,7 +16,7 @@ export default function Routes() {
   return (
     <Switch>
       <Route exact path="/">
-        <Home />
+          <F1 />
       </Route>
       <Route exact path="/login">
         <Login />
@@ -24,17 +24,16 @@ export default function Routes() {
       <Route exact path="/signUp">
       <SignUp/>
       </Route>
-      <Route exact path="/F1">
-        <F1 />
+      <Route exact path='/category/:category'>
+        <Category />
       </Route>
-
       <Route exact path="/workStation">
         <WorkStation />
       </Route>
-      <Route exact path="/jobs/:id/edit" component={EditPost}/>
-      <Route exact path="/jobdetails/:id">
+      <Route exact path="/jobs/:id">
         <Jobdetails />
       </Route>
+      <Route exact path="/jobs/:id/edit" component={EditPost}/>
       <Route exact path="/admin" component={Admin}/>
       <Route exact path="/createJob" component={CreateJob} />
 

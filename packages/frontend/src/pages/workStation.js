@@ -22,20 +22,14 @@ function WorkStation(props) {
                     return response.json();
                 })
                 .then(function (myJson) {
-                    console.log(myJson);
                     setWorkStation(myJson);
                 });
         }
 
     }
 
-    function postWorkStacion() {
-        //alert(`POST a Join`);
-        props.history.push('/createJob')
-    }
 
     function ListJobs({ jobs }) {
-        console.log(jobs)
         return (
             <div id="table1">
                 <h6 className="line"><span><strong>{search}</strong></span></h6>
@@ -105,8 +99,6 @@ function WorkStation(props) {
                         <input className="form-control" defaultValue={search} onChange={(e) => { setSearch(e.target.value) }} />
                     </div>
                     <button className="btn btn-primary inline" onClick={() => getWorkStacion()}><strong>Search</strong></button>
-
-                    <button className="btn btn-success float_right" onClick={() => postWorkStacion()} ><strong>Post a Job</strong></button>
                 </div>
             </div>
 

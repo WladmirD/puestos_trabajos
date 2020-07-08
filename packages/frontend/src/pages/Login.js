@@ -5,8 +5,10 @@ import { useAppContext } from "../libs/contextLib";
 import { setJwt } from '../services/headers';
 import Layout from '../components/layout';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 export default function Login() {
+  const history = useHistory();
   const { userHasAuthenticated, setUser } = useAppContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,7 +16,6 @@ export default function Login() {
   function validateForm() {
     return email.length > 0 && password.length > 0;
   }
-
   async function handleSubmit(event) {
     event.preventDefault();
     try {
@@ -22,12 +23,12 @@ export default function Login() {
         email ,
         password
       })
-      console.log(responseLog)
       setUser(responseLog.data.user);
       setJwt(responseLog.data.token);
       userHasAuthenticated(true);
       setEmail("");
       setPassword("");
+      history.replace('/');
     } catch (e) {
       alert(e.message);
     }
