@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Moment from 'react-moment';
-
+import { Link } from 'react-router-dom';
 import "./styles/workStation.css";
 import Layout from '../components/layout';
 import { withRouter } from "react-router-dom";
@@ -49,7 +49,7 @@ function WorkStation(props) {
                         {jobs.map((job) => {
                             return (
                                 <tr>
-                                    <td>{job.posicion}</td>
+                                    <td><Link to={`/jobs/${job.id}`}>{job.posicion}</Link></td>
                                     <td>{job.address}</td>
                                     <td><Moment fromNow>{job.created_time}</Moment></td>
                                     <td>{job.category}</td>
@@ -105,7 +105,7 @@ function WorkStation(props) {
             <div className="scroll-bar">
                 {
                     workStation.length ?
-                    (<ListJobs jobs={workStation} />) 
+                    (<ListJobs jobs={workStation} />)
                     :
                     (<h1>Welcome</h1>)
                 }
