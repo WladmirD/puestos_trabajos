@@ -50,10 +50,7 @@ class UserRoutes {
             isAdmin,
             getAdminCategory,
         );
-        this.router.post(
-            '/category',
-            createCategory,
-        );
+        this.router.post('/category', createCategory);
         this.router.use('/', jobRoutes);
     }
 }

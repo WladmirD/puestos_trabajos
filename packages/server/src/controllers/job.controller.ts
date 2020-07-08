@@ -96,7 +96,16 @@ export async function deleteJobById(req: Request, res: Response, next: NextFunct
 export async function updateJob(req: Request, res: Response, next: NextFunction) {
     try {
         const { id } = req.params;
-        const { posicion, category, address, city, type, description, url_logo, idOwner } = req.body;
+        const {
+            posicion,
+            category,
+            address,
+            city,
+            type,
+            description,
+            url_logo,
+            idOwner,
+        } = req.body;
         const job = new Job();
         job.posicion = posicion;
         job.address = address;

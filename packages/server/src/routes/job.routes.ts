@@ -29,7 +29,7 @@ class UserRoutes {
             multer(midMulter).single('image'),
             createJobCT,
         );
-        this.router.get('/jobs/:id', passport.authenticate('jwt', { session: false }), findJob);
+        this.router.get('/jobs/:id', findJob);
         this.router.put(
             '/jobs/:id',
             passport.authenticate('jwt', { session: false }),
