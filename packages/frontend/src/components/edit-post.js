@@ -55,13 +55,13 @@ export default function editPost() {
         "Logo": ""
     })
     const getCategory = async () => {
-        return await axios.get(`http://69.55.55.239:8080/api/category`)
+        return await axios.get(`/api/category`)
     }
     const getDataJob = async () => {
-        return await axios.get(`http://69.55.55.239:8080/api/jobs/${id}`, configHeader)
+        return await axios.get(`/api/jobs/${id}`, configHeader)
     }
     const getCities = async () => {
-        return await axios.get(`http://69.55.55.239:8080/api/cities`);
+        return await axios.get(`/api/cities`);
     }
     const watchPhoto = () => {
         window.open(state.url_logo);
@@ -93,7 +93,7 @@ export default function editPost() {
             }
             formData.append("idOwner", owner.id);
             try{
-            const response = await axios.put(`http://69.55.55.239:8080/api/jobs/${id}` , formData, configHeader);
+            const response = await axios.put(`/api/jobs/${id}` , formData, configHeader);
             setFormState({...state , ...newState})
             alert("Job " + (response.data.message || 'Edited'))
             history.push('/');

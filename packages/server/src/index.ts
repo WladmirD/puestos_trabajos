@@ -1,4 +1,5 @@
 import Express, { Application } from 'express';
+import path from 'path';
 import cors from 'cors';
 import cloudinary from 'cloudinary';
 import helmet from 'helmet';
@@ -30,6 +31,7 @@ class App {
         this.app.use(cors());
         this.app.use(helmet());
         this.app.use(Express.urlencoded({ extended: false }));
+        this.app.use(Express.static(path.join(__dirname,'../../frontend/build')));
         this.app.use(Express.json());
         this.app.use(rateLimit({ max: 100, windowMs: 30 * 60 * 1000 }));
         this.app.use(passport.initialize());

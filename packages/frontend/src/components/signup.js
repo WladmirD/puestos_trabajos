@@ -24,7 +24,7 @@ export default function SignUp() {
           formData.password = password;
           formData.url = url;
           formData.role =role;
-          const responseLog = await axios.post('http://69.55.55.239:8080/api/register',formData);
+          const responseLog = await axios.post('/api/register',formData);
           alert(responseLog.data.message);
           setName("");
           setEmail("");

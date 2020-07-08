@@ -10,6 +10,7 @@
     "format": "prettier --write src/**/*.ts",
     "start": "yarn run tsc && node dist/index.js",
     "start:prod": "NODE_ENV=production yarn run tsc && pm2 start dist/index.js",
+    "start:local": "yarn run tsc && node dist/index.js",
     "populate": "tsc && node dist/populate/populate.js"
   },
   "devDependencies": {

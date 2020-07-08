@@ -10,7 +10,7 @@ export default function Admin() {
     const [numPagDB, setNumPagDB] = useState();
     const [categorias,setCategorias] = useState([]);
     const [category, setCategory] = useState();
-    const url = 'http://69.55.55.239:8080/api';
+    const url = '/api';
     const configSet = config();
     useEffect(() => {
         axios.get(`${url}/pagination`, configSet)

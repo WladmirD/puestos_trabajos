@@ -6,7 +6,7 @@ import Layout from '../components/layout';
 import { withRouter } from "react-router-dom";
 
 //URL API
-const urlWorkStacionGet = "http://69.55.55.239:8080/api/jobs?search=";
+const urlWorkStacionGet = "/api/jobs?search=";
 
 function WorkStation(props) {
 

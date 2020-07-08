@@ -19,7 +19,7 @@ export default function Login() {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const responseLog = await axios.post('http://69.55.55.239:8080/api/logIn',{
+      const responseLog = await axios.post('/api/logIn',{
         email ,
         password
       })

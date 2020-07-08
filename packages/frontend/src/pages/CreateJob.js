@@ -53,10 +53,10 @@ export default function CreateJob() {
         city : ""
     })
     const getCategory = async () => {
-        return await axios.get(`http://69.55.55.239:8080/api/category`)
+        return await axios.get(`/api/category`)
     }
     const getCities = async () => {
-            return await axios.get(`http://69.55.55.239:8080/api/cities` , configSet)
+            return await axios.get(`/api/cities` , configSet)
             // setFormState({...state , cities : responsejob.data})
             // return responsejob
     }
@@ -82,7 +82,7 @@ export default function CreateJob() {
             formData.append("category" , category)
             formData.append("image" , Logo)
             try{
-            const response = await axios.post("http://69.55.55.239:8080/api/create" , formData ,  configSetForm)
+            const response = await axios.post("/api/create" , formData ,  configSetForm)
             setFormState({...state , ...newState})
             alert("Job " + (response.data.message || 'created'))
             }catch(err){

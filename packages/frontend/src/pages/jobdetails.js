@@ -13,7 +13,7 @@ export default function Jobdetails() {
     const context = useAppContext();
     const configSet = config();
     const { id } = useParams();
-    const url = 'http://69.55.55.239:8080/api/jobs/'
+    const url = '/api/jobs/'
     const [job, setJob] = useState({posicion:"", address:"", url_logo: "", description:"", created_time:"", category:"", city:"", owner:{id:"", name:"", email:"", url:""}, type:""});
      useEffect(()=> {
          async function fetchData(){

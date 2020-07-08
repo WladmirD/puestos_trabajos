@@ -7,8 +7,8 @@ import Moment from 'react-moment';
 import { render } from "@testing-library/react";
 
 //Incomplete, needs append of a specficic category
-const urlJobsGet = "http://69.55.55.239:8080/api/jobs";
-const urlCategoryGet = "http://69.55.55.239:8080/api/category";
+const urlJobsGet = "/api/jobs";
+const urlCategoryGet = "/api/category";
 
 
 export default function F1() {

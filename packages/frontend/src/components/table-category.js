@@ -4,7 +4,7 @@ import Moment from 'react-moment';
 import axios from 'axios';
 import './styles/table-category.css';
 
-const urlJobsGet = "http://69.55.55.239:8080/api/jobs";
+const urlJobsGet = "/api/jobs";
 export default function tableCategory({ categoryName }) {
     const [category] = useState(categoryName);
     const [jobs, setJobs] = useState([]);
