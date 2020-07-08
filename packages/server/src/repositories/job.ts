@@ -65,8 +65,8 @@ export async function getAllJob(limit: number | any, pages: number | any) {
         })
         .orderBy('job.created_time', 'DESC')
         .addOrderBy('category.name', 'DESC')
-        .take(limit * pages)
         .skip((pages - 1) * limit)
+        .take(limit)
         .getManyAndCount();
     const jobs = manipulateData(result);
     return { jobs, total: Math.ceil(total / limit) };
