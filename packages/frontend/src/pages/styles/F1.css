@@ -1,0 +1,10 @@
+
+  .category {
+      color: gray;
+      font-weight: 700;
+      font-size: large;
+    }
+    .category:hover {
+        text-decoration: none;
+      color: #494242;
+  }
