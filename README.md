@@ -1,7 +1,7 @@
 # Puestos de trabajos (Web1)
 
 <h1 align="center">
-  <img src="./images/HomePage.png" alt="Node.js Best Practices">
+  <img src="./images/HomePage.png" alt="Puestos de trabajos">
 </h1>
 
 <div align="center">
