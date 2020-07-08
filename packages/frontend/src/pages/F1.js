@@ -12,9 +12,8 @@ export default function F1({}) {
 
     const [jobsGet, setJobsGet] = useState([]);
     const [categoryGet, setCategoryGet] = useState([]);
-    const [activame, setActivame] = useState(1);
-
-    var page_number=1;
+    const [jobsPage, setJobsPage] = useState(1);
+    const [jobsPageLimit,setJobsPageLimit ] = useState(0);
 
 
     useEffect( ()=>  {
@@ -27,10 +26,13 @@ export default function F1({}) {
         console.log(apiCategory.data);
 
         //Get recent jobs
-        var apiJobsGet = await axios.get( urlJobsGet + activame);
+        var apiJobsGet = await axios.get( urlJobsGet + jobsPage);
         setJobsGet(apiJobsGet.data.jobs);
         console.log("JobsGet Dentro")
-        console.log(apiJobsGet.data.jobs);
+        console.log(apiJobsGet.data);
+        
+        setJobsPageLimit(apiJobsGet.data.total);
+        
 
         
         
@@ -44,23 +46,29 @@ export default function F1({}) {
 
         
 
-    },[activame]);
+    },[jobsPage]);
 
     
 
 
  
-console.log("JobsGet Afuera")
+
 
 function nextPage(){
-    render()
-    setActivame(activame + 1);
-    console.log(page_number);
-    
-    
-    
+    if (jobsPage < jobsPageLimit)
+        setJobsPage(jobsPage + 1);
+    else 
+        alert("No hay mas trabajos " );
+        render();
 }
 
+function previousPage(){
+    if (jobsPage > 1)
+        setJobsPage(jobsPage - 1);
+    else 
+        alert("No hay paginas anteriores");
+        
+}
 
 return (
     <>
@@ -101,8 +109,7 @@ return (
                     <tbody>
                         { 
                         jobsGet.map((job) => {
-                            console.log("Jobsget Dentro del map ese");
-                            console.log(job.posicion);
+                            
                             if (    counter_rows < limit_table  && categ.name ==job.category  ){
                                 counter_rows++;
 
@@ -145,10 +152,21 @@ return (
             
             
             <div>
-                <button className="btn secondary" onClick={nextPage} >
-                    {activame}
+                   
+                            <button className="btn btn-secondary fixed-bottom" id="button-previous-page" onClick={previousPage} >
+                             Previous
+                            </button>
+                    
+                    
+                
+                        
+                <button className="btn btn-secondary fixed-bottom" id="button-page" onClick={nextPage} >
+                    Next
                 </button>
+                
             </div>
+
+            
 
 
             </div>
