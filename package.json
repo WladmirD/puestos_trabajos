@@ -5,7 +5,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "start": "yarn workspace @puestos_trabajos/server start:prod"
+    "start": "yarn workspace @puestos_trabajos/server start:prod",
+    "start:prod": "yarn workspace @puestos_trabajos/frontend build && yarn workspace @puestos_trabajos/server start"
   },
   "workspaces": [
     "packages/*"

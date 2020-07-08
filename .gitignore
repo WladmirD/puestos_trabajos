@@ -28,6 +28,6 @@ dist/
 package-lock.json
 
 # production
-/build
-/yarn.lock
+build/
+yarn.lock
 *.lock
