@@ -21,7 +21,7 @@ export default function Jobdetails() {
           setJob(responsejob.data);
      }
      fetchData();
-     }, [id, configSet]);
+     });
      function edit() {
          history.push(`${id}/edit`);
      }
