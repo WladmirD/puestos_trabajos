@@ -1,7 +1,7 @@
 # Puestos de trabajos (Web1)
 
 <h1 align="center">
-  <img src="./images/HomePage.png" alt="Puestos de trabajos">
+  <img src="./project images/HomePage.png" alt="Puestos de trabajos">
 </h1>
 
 <div align="center">
@@ -26,4 +26,4 @@
 ### Con esto ya el archivo comenzara a correr.
 
 <h1 align="center">Modelo ER</h1>
-<div><img src="./images/ER.png" alt="Node.js Best Practices"></div>
+<div><img src="./project images/ER.png" alt="Node.js Best Practices"></div>
